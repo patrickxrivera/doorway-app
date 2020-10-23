@@ -94,4 +94,4 @@ const setupTwitterRoutes = (server, { auth }) => {
     })
 }
 
-module.exports = { setupTwitterRoutes };
+module.exports = setupTwitterRoutes;

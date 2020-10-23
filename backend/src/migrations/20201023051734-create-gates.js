@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('internetIdentities', {
+    await queryInterface.createTable('gates', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -15,24 +15,20 @@ module.exports = {
           key: "id" 
         },
         type: Sequelize.INTEGER,
-        allowNull: true
+        allowNull: false
       },
-      identityId: {
-        allowNull: true,
-        type: Sequelize.STRING
-      },
-      identityType: {
+      title: {
         allowNull: false,
         type: Sequelize.STRING
       },
-      screenName: {
+      description: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      link: {
         allowNull: false,
         type: Sequelize.STRING,
         unique: true
-      },
-      data: {
-        allowNull: true,
-        type: Sequelize.JSONB
       },
       revokedAt: {
         allowNull: true,
@@ -50,6 +46,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('internetIdentities');
+    await queryInterface.dropTable('gates');
   }
 };

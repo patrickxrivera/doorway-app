@@ -4,4 +4,4 @@ const setupWebhooks = (server) => {
     })
 }
 
-module.exports = { setupWebhooks };
+module.exports = setupWebhooks;

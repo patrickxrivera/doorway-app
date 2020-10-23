@@ -4,8 +4,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const ErrorHandler = require("./services/error-handler");
+const setupRoutes = require("./routes");
 const { auth } = require("./middleware");
-const { setupRoutes } = require("./routes");
 
 const port = process.env.PORT || 5000;
 

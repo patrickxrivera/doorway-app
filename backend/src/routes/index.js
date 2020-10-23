@@ -1,13 +1,13 @@
-const { setupHealthChecks } = require("./health-checks");
-const { setupWebhooks } = require("./webhooks");
-const { setupUserRoutes } = require("./user")
-const { setupTwitterRoutes } = require("./twitter")
+const setupHealthChecks = require("./health-checks");
+const setupWebhooks = require("./webhooks");
+const setupTwitterRoutes = require("./twitter")
+const setupGateRoutes = require("./gate")
 
 const setupRoutes = (server, { auth }) => {
     setupHealthChecks(server);
     setupWebhooks(server);
-    setupUserRoutes(server);
     setupTwitterRoutes(server, { auth });
+    setupGateRoutes(server, { auth });
 }
 
-module.exports = { setupRoutes };
+module.exports = setupRoutes;
