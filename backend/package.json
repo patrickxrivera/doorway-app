@@ -41,7 +41,8 @@
     "sequelize": "^6.3.5",
     "stripe": "^8.97.0",
     "twilio": "^3.49.2",
-    "twitter-lite": "^0.14.0"
+    "twitter-lite": "^0.14.0",
+    "uuid": "^8.3.1"
   },
   "devDependencies": {
     "jest": "^26.6.0"
