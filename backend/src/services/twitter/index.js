@@ -18,22 +18,27 @@ class TwitterService {
     return svc.getAccessToken(data);
   }
 
-  static async follow(data) {
+  static async follow(accessTokens) {
     const svc = new TwitterService();
-    return svc.follow(data);
+    return svc.follow(accessTokens);
+  }
+
+  static async validateScreenNames(screenNames, accessTokens) {
+    const svc = new TwitterService();
+    return svc.validateScreenNames(screenNames, accessTokens);
   }
 
   constructor({ client = null, callbackUrl = null } = {}) {
-      this.client = client ? new client() : new Twitter({
-          consumer_key: twitterConsumerKey,
-          consumer_secret: twitterConsumerSecret
-      })
+    this.client = client ? new client() : new Twitter({
+        consumer_key: twitterConsumerKey,
+        consumer_secret: twitterConsumerSecret
+    })
 
-      this.callbackUrl = callbackUrl || callbackUrlConfig;
+    this.callbackUrl = callbackUrl || callbackUrlConfig;
   }
 
   async getRequestToken() {
-      return this.client.getRequestToken(this.callbackUrl);
+    return this.client.getRequestToken(this.callbackUrl);
   }
 
   async getAccessToken({ oAuthVerifier, oAuthToken}) {
@@ -43,13 +48,8 @@ class TwitterService {
     });
   }
 
-  async follow({ oAuthToken, oAuthTokenSecret }) {
-    const client = new Twitter({
-      consumer_key: twitterConsumerKey,
-      consumer_secret: twitterConsumerSecret,
-      access_token_key: oAuthToken,
-      access_token_secret: oAuthTokenSecret
-    })
+  async follow(accessTokens) {
+    const client = this._initClientWithAccessTokens(accessTokens)
 
     let response = [];
 
@@ -69,8 +69,56 @@ class TwitterService {
     return response;
   }
 
+  async validateScreenNames(screenNames, accessTokens) {
+    // cases
+    // 1) all screen names valid
+    // 2) some valid, some invalid
+    // 3) all invalid
+    const client = this._initClientWithAccessTokens(accessTokens);
+
+    let users = []
+
+    try {
+      users = await client.post("users/lookup", {
+        screen_name: screenNames
+      });
+    } catch (e) {
+      // no user matches specified terms
+      return {
+        validScreenNames: [],
+        invalidScreenNames: screenNames.split(",")
+      }
+    }
+
+    const validScreenNames = users.map(({ screen_name }) => screen_name);
+
+    const lowercasedValidScreenNames = validScreenNames.map(s => s.toLowerCase());
+
+    let invalidScreenNames = [];
+    
+    screenNames.split(",").forEach((screenName) => {
+      if (!lowercasedValidScreenNames.includes(screenName.trim())) {
+        invalidScreenNames.push(screenName);
+      }
+    })
+
+    return {
+      validScreenNames,
+      invalidScreenNames
+    }
+  }
+
   _buildProfileLink(screenName) {
     return `${TWITTER_BASE_URL}/${screenName}`;
+  }
+
+  _initClientWithAccessTokens({ oAuthToken, oAuthTokenSecret }) {
+    return new Twitter({
+      consumer_key: twitterConsumerKey,
+      consumer_secret: twitterConsumerSecret,
+      access_token_key: oAuthToken,
+      access_token_secret: oAuthTokenSecret
+    })
   }
 }
 

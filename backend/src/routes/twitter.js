@@ -67,25 +67,31 @@ const setupTwitterRoutes = (server, { auth }) => {
 
     server.post("/twitter/follow", auth, async (req, res, next) => {
         try {
-            const { userId } = req;
+            const { accessTokens } = req;
 
-            const { data: { oAuthToken, oAuthTokenSecret }} = await models.internetIdentity.findOne({
-                where: {
-                    userId,
-                    identityType: INTERNET_IDENTITY_TYPES.TWITTER
-                }
-            })
-
-            const response = await TwitterService.follow({
-                oAuthToken,
-                oAuthTokenSecret
-            });
+            const response = await TwitterService.follow(accessTokens);
             
             res.json(response);
         } catch (e) {
             next(e);
         }
     });
+
+    server.post("/twitter/validate-screen-names", auth, async (req, res, next) => {
+        try {
+            const { screenNames } = req.body;
+            const { accessTokens } = req;
+            
+            const { 
+                validScreenNames, 
+                invalidScreenNames 
+            } = await TwitterService.validateScreenNames(screenNames, accessTokens);
+            
+            res.json({ validScreenNames, invalidScreenNames });
+        } catch (e) {
+            next(e);
+        }
+    })
 }
 
 module.exports = { setupTwitterRoutes };
