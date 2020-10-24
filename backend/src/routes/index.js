@@ -11,7 +11,7 @@ const setupRoutes = (server, { auth }) => {
     setupUserRoutes(server, { auth });
     setupTwitterRoutes(server, { auth });
     setupReferralRoutes(server, { auth });
-    setupLeaderboardRoutes(server, { auth });
+    setupLeaderboardRoutes(server);
 }
 
 module.exports = { setupRoutes };
