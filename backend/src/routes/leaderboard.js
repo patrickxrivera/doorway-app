@@ -1,7 +1,7 @@
 const LeaderboardService = require("../services/leaderboard");
 
-const setupLeaderboardRoutes = (server, { auth }) => {
-    server.get("/leaderboard", auth, async (req, res, next) => {
+const setupLeaderboardRoutes = (server) => {
+    server.get("/leaderboard", async (req, res, next) => {
         try {
             const leaderboard = await LeaderboardService.fetch();
             
