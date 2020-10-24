@@ -2,16 +2,11 @@ import React from 'react';
 import Modal from "react-bootstrap/Modal";
 import { css } from "styled-components";
 
-import {
-    SectionContainer,
-    Link
-} from "./styles";
-import { EmailButton } from '../InitialStep/styles';
+import { SectionContainer } from "./styles";
 
-const buildReferralLink = (referralCode) => `https://usemicro.com?referral_code=${referralCode}`;
+const buildReferralLink = (referralCode) => `https://usemicro.com/follow-gate?referral_code=${referralCode}`;
 
 function ConnectTwitterSuccess({ referralCode, position }) {
-    console.log({position})
     return (
         <React.Fragment>
             <Modal.Header style={styles.ModalHeader}>
