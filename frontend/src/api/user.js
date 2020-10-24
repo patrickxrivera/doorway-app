@@ -1,13 +1,17 @@
-import axios from "axios";
-import { SAVE_EMAIL } from "../utils/endpoints";
-import ErrorLogger from "../services/error-logger";
+import { GET_POSITION } from "../utils/endpoints";
+import { getErrorMessageFromResponse } from "../utils/helpers";
+import * as Sentry from "@sentry/react";
+import api from "../services/api";
 
-export const saveEmail = async (email) => {
+export const getPosition = async () => {
     try {
-        const res = await axios.post(SAVE_EMAIL, { email });
-        return res.data;
+        const res = await api.get(GET_POSITION);
+        
+        const { position } = res.data;
+        
+        return position;
     } catch (e) {
-        ErrorLogger.send(e, { email });
+        Sentry.captureMessage(getErrorMessageFromResponse(e));
         return null;
     }
 }

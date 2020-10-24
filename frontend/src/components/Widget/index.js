@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Modal from "../Modal";
 import styled from "styled-components";
+import Button from "react-bootstrap/Button";
 import queryStringParser from "qs"
 import { getAccessToken } from '../../api/twitter';
 import InitialStep from '../Modal/InitialStep';
@@ -9,6 +10,7 @@ import Loading from '../Modal/Loading';
 import ErrorLogger from '../../services/error-logger';
 import Cache from '../../services/cache';
 import { getReferralCode, redeemReferralCode } from '../../api/referral';
+import { getPosition } from '../../api/user';
 
 const STEPS = {
   INITIAL_STEP: () => InitialStep,
@@ -17,9 +19,10 @@ const STEPS = {
 }
 
 function Widget() {
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
   const [StepComponent, setStepComponent] = useState(STEPS.INITIAL_STEP);
   const [referralCode, setReferralCode] = useState(null);
+  const [position, setPosition] = useState(null);
 
   useEffect(() => {
     const handleTwitterRedirect = async ({ oauth_token, oauth_verifier }) => {
@@ -38,8 +41,10 @@ function Widget() {
       }
   
       const generatedReferralCode = await getReferralCode();
+      const position = await getPosition();
   
       setReferralCode(generatedReferralCode);
+      setPosition(position);
   
       setStepComponent(STEPS.CONNECT_TWITTER_SUCCESS);
     }
@@ -53,6 +58,7 @@ function Widget() {
       }
 
       try {
+        setShow(true);
         setStepComponent(STEPS.LOADING);
 
         const { oauth_token, oauth_verifier, referral_code } = res;
@@ -79,14 +85,21 @@ function Widget() {
     
     handleQueryParams();
   }, []);
+
+  const handleShow = () => setShow(true);
   
   return (
     <Container>
+      <Button onClick={handleShow} variant="secondary">Get Access</Button>
+      <FooterContainer>
+        <span>Made with ❤️ by <a href="https://usemicro.com" target="_blank">Micro</a></span>
+      </FooterContainer>
       <Modal 
         show={show} 
         setShow={setShow} 
         StepComponent={StepComponent}
         referralCode={referralCode}
+        position={position}
       />
     </Container>
   );
@@ -98,6 +111,11 @@ const Container = styled.div`
   margin-top: 16px;
   flex-direction: column;
   align-items: center;
+`
+
+const FooterContainer = styled.div`
+  font-size: 12px;
+  margin-top: 12px
 `
 
 export default Widget;
