@@ -8,7 +8,7 @@ const { setupLeaderboardRoutes } = require("./leaderboard");
 const setupRoutes = (server, { auth }) => {
     setupHealthChecks(server);
     setupWebhooks(server);
-    setupUserRoutes(server);
+    setupUserRoutes(server, { auth });
     setupTwitterRoutes(server, { auth });
     setupReferralRoutes(server, { auth });
     setupLeaderboardRoutes(server, { auth });
