@@ -3,8 +3,9 @@ import Modal from "react-bootstrap/Modal";
 import { css } from "styled-components";
 
 import { SectionContainer } from "./styles";
+import config from "../../../config";
 
-const buildReferralLink = (referralCode) => `https://usemicro.com/follow-gate?referral_code=${referralCode}`;
+const buildReferralLink = (referralCode) => `${config.webAppUrl}?referral_code=${referralCode}`;
 
 function ConnectTwitterSuccess({ referralCode, position }) {
     return (

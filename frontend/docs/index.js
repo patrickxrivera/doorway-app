@@ -388,7 +388,7 @@ module.exports=require("./lib/axios");
 },{}],"cEys":[function(require,module,exports) {
 "use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.default=void 0;var e={apiUrl:"http://localhost:5000"};exports.default=e;
 },{}],"sdi9":[function(require,module,exports) {
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.default=void 0;var e={sentryDSN:"https://9c860a9e112b4c05882d295583f236ec@o464689.ingest.sentry.io/5477495"};exports.default=e;
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.default=void 0;var e={sentryDSN:"https://9c860a9e112b4c05882d295583f236ec@o464689.ingest.sentry.io/5477495",webAppUrl:"https://usemicro.com/follow-gate"};exports.default=e;
 },{}],"yMXu":[function(require,module,exports) {
 "use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.default=void 0;var e=d(require("./production")),r=d(require("./development")),t=d(require("./shared")),u=require("../utils/helpers");function d(e){return e&&e.__esModule?e:{default:e}}const o=(0,u.isProdEnv)()?e.default:r.default;var l={...t.default,...o};exports.default=l;
 },{"./production":"gk7W","./development":"cEys","./shared":"sdi9","../utils/helpers":"H3pF"}],"jMNs":[function(require,module,exports) {
@@ -497,15 +497,15 @@ module.exports=require("./lib/axios");
     }
 `;exports.Link=n;
 },{"styled-components":"tFSs"}],"bgc8":[function(require,module,exports) {
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.default=void 0;var e=a(require("react")),t=a(require("react-bootstrap/Modal")),r=require("styled-components"),l=require("./styles"),n=require("../InitialStep/styles");function a(e){return e&&e.__esModule?e:{default:e}}const o=e=>`https://usemicro.com?referral_code=${e}`;function u({referralCode:r,position:n}){return console.log({position:n}),e.default.createElement(e.default.Fragment,null,e.default.createElement(t.default.Header,{style:s.ModalHeader},e.default.createElement(t.default.Title,null,"Successful Twitter follow 🎉")),e.default.createElement(t.default.Body,null,e.default.createElement(l.SectionContainer,{css:s.SectionContainer},e.default.createElement("span",null,"Congrats 🤗 You are ",e.default.createElement("strong",null,"#",n)," in line"),e.default.createElement("span",null,"Here is your referral link:"),e.default.createElement("a",{href:o(r)},o(r)))))}const s={SectionContainer:r.css`
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.default=void 0;var e=a(require("react")),t=a(require("react-bootstrap/Modal")),r=require("styled-components"),l=require("./styles"),n=a(require("../../../config"));function a(e){return e&&e.__esModule?e:{default:e}}const o=e=>`${n.default.webAppUrl}?referral_code=${e}`;function u({referralCode:r,position:n}){return e.default.createElement(e.default.Fragment,null,e.default.createElement(t.default.Header,{style:d.ModalHeader},e.default.createElement(t.default.Title,null,"Successful Twitter follow 🎉")),e.default.createElement(t.default.Body,null,e.default.createElement(l.SectionContainer,{css:d.SectionContainer},e.default.createElement("span",null,"Congrats 🤗 You are ",e.default.createElement("strong",null,"#",n)," in line"),e.default.createElement("span",null,"Here is your referral link:"),e.default.createElement("a",{href:o(r)},o(r)))))}const d={SectionContainer:r.css`
         flex-direction: column;
         align-items: center;
     `,ModalHeader:{justifyContent:"center"},EmailButton:r.css`
         margin-top: 8px;
         background: #4BB543;
         border: none;
-    `};var i=u;exports.default=i;
-},{"react":"n8MK","react-bootstrap/Modal":"ArHr","styled-components":"tFSs","./styles":"OiET","../InitialStep/styles":"Ir61"}],"jyuO":[function(require,module,exports) {
+    `};var c=u;exports.default=c;
+},{"react":"n8MK","react-bootstrap/Modal":"ArHr","styled-components":"tFSs","./styles":"OiET","../../../config":"yMXu"}],"jyuO":[function(require,module,exports) {
 function o(o,t){o.prototype=Object.create(t.prototype),o.prototype.constructor=o,o.__proto__=t}module.exports=o;
 },{}],"kwH3":[function(require,module,exports) {
 "use strict";function e(e){if(e.sheet)return e.sheet;for(var t=0;t<document.styleSheets.length;t++)if(document.styleSheets[t].ownerNode===e)return document.styleSheets[t]}function t(e){var t=document.createElement("style");return t.setAttribute("data-emotion",e.key),void 0!==e.nonce&&t.setAttribute("nonce",e.nonce),t.appendChild(document.createTextNode("")),t}Object.defineProperty(exports,"__esModule",{value:!0}),exports.StyleSheet=void 0;var s=function(){function s(e){this.isSpeedy=void 0===e.speedy||e.speedy,this.tags=[],this.ctr=0,this.nonce=e.nonce,this.key=e.key,this.container=e.container,this.before=null}var n=s.prototype;return n.insert=function(s){if(this.ctr%(this.isSpeedy?65e3:1)==0){var n,i=t(this);n=0===this.tags.length?this.before:this.tags[this.tags.length-1].nextSibling,this.container.insertBefore(i,n),this.tags.push(i)}var r=this.tags[this.tags.length-1];if(this.isSpeedy){var o=e(r);try{var h=105===s.charCodeAt(1)&&64===s.charCodeAt(0);o.insertRule(s,h?0:o.cssRules.length)}catch(c){0}}else r.appendChild(document.createTextNode(s));this.ctr++},n.flush=function(){this.tags.forEach(function(e){return e.parentNode.removeChild(e)}),this.tags=[],this.ctr=0},s}();exports.StyleSheet=s;
