@@ -8,7 +8,7 @@ import ConnectTwitterSuccess from '../Modal/ConnectTwitterSuccess';
 import Loading from '../Modal/Loading';
 import ErrorLogger from '../../services/error-logger';
 import Cache from '../../services/cache';
-import { getReferralCode } from '../../api/referral';
+import { getReferralCode, redeemReferralCode } from '../../api/referral';
 
 const STEPS = {
   INITIAL_STEP: () => InitialStep,
@@ -22,6 +22,28 @@ function Widget() {
   const [referralCode, setReferralCode] = useState(null);
 
   useEffect(() => {
+    const handleTwitterRedirect = async ({ oauth_token, oauth_verifier }) => {
+      const { token } = await getAccessToken({
+        oAuthToken: oauth_token,
+        oAuthVerifier: oauth_verifier
+      });
+      
+      Cache.saveToken(token);
+
+      const existingReferralCode = Cache.getReferralCode();
+      
+      if (existingReferralCode) {
+        await redeemReferralCode(existingReferralCode)
+        Cache.removeReferralCode();
+      }
+  
+      const generatedReferralCode = await getReferralCode();
+  
+      setReferralCode(generatedReferralCode);
+  
+      setStepComponent(STEPS.CONNECT_TWITTER_SUCCESS);
+    }
+
     const handleQueryParams = async () => {
       const url = window.location.href.split("?")[1];
       const res = queryStringParser.parse(url, { ignoreQueryPrefix: true });
@@ -33,20 +55,21 @@ function Widget() {
       try {
         setStepComponent(STEPS.LOADING);
 
-        const { oauth_token, oauth_verifier } = res;
-        
-        const { token } = await getAccessToken({
-          oAuthToken: oauth_token,
-          oAuthVerifier: oauth_verifier
-        });
-        
-        Cache.saveToken(token);
+        const { oauth_token, oauth_verifier, referral_code } = res;
 
-        const referralCode = await getReferralCode();
+        if (oauth_token && oauth_verifier) {
+          handleTwitterRedirect({
+            oauth_token,
+            oauth_verifier
+          });
+          return;
+        }
 
-        setReferralCode(referralCode);
-
-        setStepComponent(STEPS.CONNECT_TWITTER_SUCCESS);
+        if (referral_code) {
+          Cache.saveReferralCode(referral_code);
+          setStepComponent(STEPS.INITIAL_STEP);
+          return;
+        }
       } catch (e) {
         ErrorLogger.send(e);
         // TODO: create error step

@@ -4,17 +4,14 @@ const INTERNET_IDENTITY_TYPES = {
 
 const EVENT_TYPES = {
     SIGN_UP: {
-        id: 1,
         name: "SIGN_UP",
         points: 10
     },
     REFERRER: {
-        id: 2,
         name: "REFERRER",
         points: 10
     },
     REFERREE: {
-        id: 3,
         name: "REFERREE",
         points: 5
     },

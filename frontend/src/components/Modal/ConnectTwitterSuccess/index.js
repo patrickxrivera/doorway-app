@@ -11,7 +11,6 @@ import { EmailButton } from '../InitialStep/styles';
 const buildReferralLink = (referralCode) => `https://usemicro.com?referral_code=${referralCode}`;
 
 function ConnectTwitterSuccess({ referralCode }) {
-    console.log({referralCode})
     return (
         <React.Fragment>
             <Modal.Header style={styles.ModalHeader}>

@@ -1,4 +1,5 @@
 const models = require("../../models");
+const EventService = require("../event");
 
 class RedeemedReferralCodeService {
     static async create({ code, referreeId }) {
@@ -35,11 +36,17 @@ class RedeemedReferralCodeService {
             throw new Error("Can only redeem a referral code once. Sowwy.");
         }
 
-        return models.redeemedReferralCode.create({
+        const redeemedReferralCode = await models.redeemedReferralCode.create({
             referralCodeId,
             referreeId,
             referrerId
         })
+
+        await EventService.logReferrer(referrerId);
+        
+        await EventService.logReferree(referreeId);
+
+        return redeemedReferralCode;
     }
 }
 
