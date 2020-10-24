@@ -2,16 +2,12 @@ import React from 'react';
 import Modal from "react-bootstrap/Modal";
 import { css } from "styled-components";
 
-import {
-    SectionContainer,
-    Link
-} from "./styles";
-import { EmailButton } from '../InitialStep/styles';
+import { SectionContainer } from "./styles";
+import config from "../../../config";
 
-const buildReferralLink = (referralCode) => `https://usemicro.com?referral_code=${referralCode}`;
+const buildReferralLink = (referralCode) => `${config.webAppUrl}?referral_code=${referralCode}`;
 
-function ConnectTwitterSuccess({ referralCode }) {
-    console.log({referralCode})
+function ConnectTwitterSuccess({ referralCode, position }) {
     return (
         <React.Fragment>
             <Modal.Header style={styles.ModalHeader}>
@@ -19,7 +15,7 @@ function ConnectTwitterSuccess({ referralCode }) {
             </Modal.Header>
             <Modal.Body>
                 <SectionContainer css={styles.SectionContainer}>
-                    <span>Congrats 🤗 You are <strong>#300</strong> in line</span>
+                    <span>Congrats 🤗 You are <strong>#{position}</strong> in line</span>
                     <span>Here is your referral link:</span>
                     <a href={buildReferralLink(referralCode)}>{buildReferralLink(referralCode)}</a>
                 </SectionContainer>

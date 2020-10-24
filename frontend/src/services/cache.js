@@ -1,7 +1,8 @@
 import api from "./api";
 
 const KEYS = {
-    TOKEN: "TOKEN"
+    TOKEN: "TOKEN",
+    REFERRAL_CODE: "REFERRAL_CODE"
 }
 
 class Cache {
@@ -13,6 +14,18 @@ class Cache {
     static removeToken() {
         localStorage.removeItem(KEYS.TOKEN);
         api.removeToken();
+    }
+
+    static saveReferralCode(referralCode) {
+        localStorage.setItem(KEYS.REFERRAL_CODE, referralCode);
+    }
+
+    static getReferralCode() {
+        return localStorage.getItem(KEYS.REFERRAL_CODE);
+    }
+
+    static removeReferralCode() {
+        localStorage.removeItem(KEYS.REFERRAL_CODE);
     }
 }
 

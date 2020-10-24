@@ -3,6 +3,7 @@ const models = require("../models")
 const { INTERNET_IDENTITY_TYPES } = require("../utils/constants");
 const jwt = require("jsonwebtoken");
 const { jwtSecretKey } = require("../config");
+const EventService = require("../services/event");
 
 const setupTwitterRoutes = (server, { auth }) => {
     server.get("/twitter/request-token", async (req, res, next) => {
@@ -57,6 +58,8 @@ const setupTwitterRoutes = (server, { auth }) => {
                 }
                 
                 const token = jwt.sign(userDetails, jwtSecretKey);
+
+                await EventService.logSignUp(user.id);
                 
                 res.json({ token, existing: false })
             };

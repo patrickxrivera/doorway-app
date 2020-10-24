@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Modal from "../Modal";
 import styled from "styled-components";
+import Button from "react-bootstrap/Button";
 import queryStringParser from "qs"
 import { getAccessToken } from '../../api/twitter';
 import InitialStep from '../Modal/InitialStep';
@@ -8,7 +9,8 @@ import ConnectTwitterSuccess from '../Modal/ConnectTwitterSuccess';
 import Loading from '../Modal/Loading';
 import ErrorLogger from '../../services/error-logger';
 import Cache from '../../services/cache';
-import { getReferralCode } from '../../api/referral';
+import { getReferralCode, redeemReferralCode } from '../../api/referral';
+import { getPosition } from '../../api/user';
 
 const STEPS = {
   INITIAL_STEP: () => InitialStep,
@@ -17,11 +19,36 @@ const STEPS = {
 }
 
 function Widget() {
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
   const [StepComponent, setStepComponent] = useState(STEPS.INITIAL_STEP);
   const [referralCode, setReferralCode] = useState(null);
+  const [position, setPosition] = useState(null);
 
   useEffect(() => {
+    const handleTwitterRedirect = async ({ oauth_token, oauth_verifier }) => {
+      const { token } = await getAccessToken({
+        oAuthToken: oauth_token,
+        oAuthVerifier: oauth_verifier
+      });
+      
+      Cache.saveToken(token);
+
+      const existingReferralCode = Cache.getReferralCode();
+      
+      if (existingReferralCode) {
+        await redeemReferralCode(existingReferralCode)
+        Cache.removeReferralCode();
+      }
+  
+      const generatedReferralCode = await getReferralCode();
+      const position = await getPosition();
+  
+      setReferralCode(generatedReferralCode);
+      setPosition(position);
+  
+      setStepComponent(STEPS.CONNECT_TWITTER_SUCCESS);
+    }
+
     const handleQueryParams = async () => {
       const url = window.location.href.split("?")[1];
       const res = queryStringParser.parse(url, { ignoreQueryPrefix: true });
@@ -31,22 +58,24 @@ function Widget() {
       }
 
       try {
+        setShow(true);
         setStepComponent(STEPS.LOADING);
 
-        const { oauth_token, oauth_verifier } = res;
-        
-        const { token } = await getAccessToken({
-          oAuthToken: oauth_token,
-          oAuthVerifier: oauth_verifier
-        });
-        
-        Cache.saveToken(token);
+        const { oauth_token, oauth_verifier, referral_code } = res;
 
-        const referralCode = await getReferralCode();
+        if (oauth_token && oauth_verifier) {
+          handleTwitterRedirect({
+            oauth_token,
+            oauth_verifier
+          });
+          return;
+        }
 
-        setReferralCode(referralCode);
-
-        setStepComponent(STEPS.CONNECT_TWITTER_SUCCESS);
+        if (referral_code) {
+          Cache.saveReferralCode(referral_code);
+          setStepComponent(STEPS.INITIAL_STEP);
+          return;
+        }
       } catch (e) {
         ErrorLogger.send(e);
         // TODO: create error step
@@ -56,14 +85,21 @@ function Widget() {
     
     handleQueryParams();
   }, []);
+
+  const handleShow = () => setShow(true);
   
   return (
     <Container>
+      <Button onClick={handleShow} variant="secondary">Get Access</Button>
+      <FooterContainer>
+        <span>Made with ❤️ by <a href="https://usemicro.com" target="_blank">Micro</a></span>
+      </FooterContainer>
       <Modal 
         show={show} 
         setShow={setShow} 
         StepComponent={StepComponent}
         referralCode={referralCode}
+        position={position}
       />
     </Container>
   );
@@ -75,6 +111,11 @@ const Container = styled.div`
   margin-top: 16px;
   flex-direction: column;
   align-items: center;
+`
+
+const FooterContainer = styled.div`
+  font-size: 12px;
+  margin-top: 12px
 `
 
 export default Widget;
