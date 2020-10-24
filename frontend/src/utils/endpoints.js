@@ -4,4 +4,6 @@ export const GET_ACCESS_TOKEN = `/twitter/access-token`;
 
 export const FOLLOW_ON_TWITTER = `/twitter/follow`;
 
+export const GET_REFERRAL_CODE = '/referral/code';
+
 export const TWITTER_OAUTH_URL = "https://api.twitter.com/oauth/authorize";

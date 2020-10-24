@@ -1,9 +1,9 @@
 const models = require("../../models");
-const { v4: uuidv4 } = require('uuid');
+const referralCodeGenerator = require('referral-code-generator')
 
 class ReferralCodeService {
     static async create(userId) {
-        const code = uuidv4();
+        const code = referralCodeGenerator.alpha('lowercase', 12);
 
         return models.referralCode.create({
             userId,

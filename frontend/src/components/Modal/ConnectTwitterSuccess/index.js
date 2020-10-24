@@ -8,7 +8,10 @@ import {
 } from "./styles";
 import { EmailButton } from '../InitialStep/styles';
 
-function TwitterFollowSuccess({ followedTwitterUsers }) {
+const buildReferralLink = (referralCode) => `https://usemicro.com?referral_code=${referralCode}`;
+
+function ConnectTwitterSuccess({ referralCode }) {
+    console.log({referralCode})
     return (
         <React.Fragment>
             <Modal.Header style={styles.ModalHeader}>
@@ -16,16 +19,9 @@ function TwitterFollowSuccess({ followedTwitterUsers }) {
             </Modal.Header>
             <Modal.Body>
                 <SectionContainer css={styles.SectionContainer}>
-                    <span>Congrats 🤗 You just followed these Twitter accounts:</span>
-                    <ul>
-                        {followedTwitterUsers.map((user) => {
-                            return <li><a href={user.profileLink} target="_blank">{user.screenName}</a></li>
-                        })}
-                    </ul>
-                    <span>You can now access the super duper secret content here:</span>
-                    <Link href="https://usemicro.com/super-duper-secret-content" target="_blank">
-                        <EmailButton css={styles.EmailButton}>Leggo</EmailButton>
-                    </Link>
+                    <span>Congrats 🤗 You are <strong>#300</strong> in line</span>
+                    <span>Here is your referral link:</span>
+                    <a href={buildReferralLink(referralCode)}>{buildReferralLink(referralCode)}</a>
                 </SectionContainer>
             </Modal.Body>
         </React.Fragment>
@@ -48,4 +44,4 @@ const styles =  {
 }
 
 
-export default TwitterFollowSuccess;
+export default ConnectTwitterSuccess;
