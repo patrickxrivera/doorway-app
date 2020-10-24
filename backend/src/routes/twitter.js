@@ -37,7 +37,7 @@ const setupTwitterRoutes = (server, { auth }) => {
                 
                 const token = jwt.sign(userDetails, jwtSecretKey);
 
-                res.json({ token })
+                res.json({ token, existing: true })
             } else {
                 const user = await models.user.create();
                 
@@ -58,7 +58,7 @@ const setupTwitterRoutes = (server, { auth }) => {
                 
                 const token = jwt.sign(userDetails, jwtSecretKey);
                 
-                res.json({ token })
+                res.json({ token, existing: false })
             };
         } catch (e) {
             next(e);
