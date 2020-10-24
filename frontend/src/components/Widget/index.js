@@ -2,24 +2,24 @@ import React, { useState, useEffect } from 'react';
 import Modal from "../Modal";
 import styled from "styled-components";
 import queryStringParser from "qs"
-import { getAccessToken, followOnTwitter } from '../../api/twitter';
+import { getAccessToken } from '../../api/twitter';
 import InitialStep from '../Modal/InitialStep';
-import TwitterFollowSuccess from '../Modal/TwitterFollowSuccess';
+import ConnectTwitterSuccess from '../Modal/ConnectTwitterSuccess';
 import Loading from '../Modal/Loading';
 import ErrorLogger from '../../services/error-logger';
-import api from '../../services/api';
 import Cache from '../../services/cache';
+import { getReferralCode } from '../../api/referral';
 
 const STEPS = {
   INITIAL_STEP: () => InitialStep,
-  TWITTER_FOLLOW_SUCCESS: () => TwitterFollowSuccess,
+  CONNECT_TWITTER_SUCCESS: () => ConnectTwitterSuccess,
   LOADING: () => Loading
 }
 
 function Widget() {
   const [show, setShow] = useState(true);
   const [StepComponent, setStepComponent] = useState(STEPS.INITIAL_STEP);
-  const [followedTwitterUsers, setFollowedTwitterUsers] = useState([]);
+  const [referralCode, setReferralCode] = useState(null);
 
   useEffect(() => {
     const handleQueryParams = async () => {
@@ -41,12 +41,12 @@ function Widget() {
         });
         
         Cache.saveToken(token);
-        
-        const followOnTwitterRes = await followOnTwitter();
 
-        setStepComponent(STEPS.TWITTER_FOLLOW_SUCCESS);
+        const referralCode = await getReferralCode();
 
-        setFollowedTwitterUsers(followOnTwitterRes);
+        setReferralCode(referralCode);
+
+        setStepComponent(STEPS.CONNECT_TWITTER_SUCCESS);
       } catch (e) {
         ErrorLogger.send(e);
         // TODO: create error step
@@ -63,7 +63,7 @@ function Widget() {
         show={show} 
         setShow={setShow} 
         StepComponent={StepComponent}
-        followedTwitterUsers={followedTwitterUsers}
+        referralCode={referralCode}
       />
     </Container>
   );
