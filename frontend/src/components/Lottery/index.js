@@ -123,9 +123,11 @@ function Lottery() {
                     <span>oops. something went wrong. plz try agen.</span>
                 </ErrorMessageContainer>}
         </div>
-        <img src="/pyramid-scheme.png" style={{ 
-            width: "100%"
-        }} />
+        <a href="https://a07npyf3mhd9.landen.co/" target="_blank">
+            <img src="/pyramid-scheme.png" style={{ 
+                width: "100%"
+            }} />
+        </a>
     </div>
   );
 }
@@ -207,6 +209,7 @@ const EmailInputSectionContainer = styled.div`
   display: flex;
   margin-top: 12px;
   align-items: center;
+  font-family: "Patua One";
 `
 
 const EmailButton = styled.div`
