@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { savePhoneNumber } from "../../api/phone-number";
 import Spinner from "react-bootstrap/Spinner";
 import Countdown from "react-countdown";
+import PhoneNumber from '../../services/phone-number';
 
 function Lottery() {
     const [phoneNumber, setPhoneNumber] = useState("");
@@ -15,10 +16,19 @@ function Lottery() {
   }
 
   const handleSubmit = async () => {
+    const trimmedPhoneNumber = phoneNumber.replace(/ /g, "");
+    const formattedPhoneNumber = PhoneNumber.toInternationalFormatV2(
+        trimmedPhoneNumber
+    );
+    console.log({formattedPhoneNumber})
+    if (formattedPhoneNumber.length < 12) {
+        setErrorMessage("phone number isn't long enough. plz try agen.");
+        return;
+    }
+
     setLoading(true);
     
-    
-    const successResponse = await savePhoneNumber(phoneNumber)
+    const successResponse = await savePhoneNumber(formattedPhoneNumber)
     
     if (successResponse) {
       setSuccess(true);
@@ -55,7 +65,7 @@ function Lottery() {
 
   return (
     <div style={{
-        backgroundImage: `url("/lottery-background.png")`,
+        backgroundImage: `url("/lottery-background-v2.png")`,
         backgroundSize: "cover",
         overflow: "hidden",
         display: "flex",
@@ -64,11 +74,7 @@ function Lottery() {
         alignItems: "center",
         position: "relative"
     }}>
-        <img src="/twitter-board.png" style={{ 
-            height: 700,
-            position: "relative",
-            maxWidth: 924
-        }} />
+        <TwitterBoardImage src="/twitter-board.png" />
         <div style={{
             color: "#fff",
             position: "relative",
@@ -79,18 +85,9 @@ function Lottery() {
             marginTop: -300,
             fontSize: 50
         }}>
-            <CountdownTimerText daysInHours date={new Date("10/27/2020")} />
+            <CountdownTimerText daysInHours date={new Date("10/28/2020")} />
         </div>
-        <div style={{
-            marginTop: 80,
-            fontSize: 20,
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            color: "white",
-            width: 720
-        }}>
+        <HowItWorksContainer>
             <SmallHeader>
                 How it works:
             </SmallHeader>
@@ -103,11 +100,16 @@ function Lottery() {
             <PatuaText>
                 At the end of the 24 hours, your points will be converted to lottery tickets and we will randomly select one person to receive a follow from everybody that joined.
             </PatuaText>
-        </div>
-        <div style={{
-            marginTop: 80,
-            marginBottom: 220
-        }}>
+            <SmallHeader style={{marginTop: 40}}>
+                Point System
+            </SmallHeader>
+            <PointItemContainer>
+                <PointItem>10 points - Connect your Twitter account</PointItem>
+                <PointItem>10 points - Refer a friend</PointItem>
+                <PointItem>5 points - Join using referral link</PointItem>
+            </PointItemContainer>
+        </HowItWorksContainer>
+        <GetNotifiedContainer>
             <SmallHeader>
                 Get notified before the public:
             </SmallHeader>
@@ -120,17 +122,51 @@ function Lottery() {
                 </EmailButton>
             </EmailInputSectionContainer>
                 {errorMessage && <ErrorMessageContainer>
-                    <span>oops. something went wrong. plz try agen.</span>
+                    <span>{errorMessage}</span>
                 </ErrorMessageContainer>}
-        </div>
+        </GetNotifiedContainer>
         <a href="https://a07npyf3mhd9.landen.co/" target="_blank">
             <img src="/pyramid-scheme.png" style={{ 
-                width: "100%"
+                width: "100%",
             }} />
         </a>
     </div>
   );
 }
+
+const GetNotifiedContainer = styled.div`
+    margin-top: 80px;
+    margin-bottom: 280px;
+
+    @media (max-width: 768px) {
+        margin-bottom: 140px;
+    }
+`
+
+const HowItWorksContainer = styled.div`
+    margin-top: 80px;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    width: 720px;
+
+    @media (max-width: 768px) {
+        width: 330px;
+    }
+`
+
+const TwitterBoardImage = styled.img`
+    height: 700px;
+    position: relative;
+    max-width: 924;
+
+    @media (max-width: 768px) {
+        height: 300px;
+    }
+`
 
 const SmallHeader = styled.span`
     font-size: 25px;
@@ -143,9 +179,27 @@ const SmallHeader = styled.span`
     font-size: 25px;
 `
 
+const PointItemContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    padding-top: 18px;
+`
+
 const PatuaText = styled.span`
     text-align: center;
     margin-top: 24px;
+    font-family: "Patua One";
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+
+    @media (max-width: 768px) {
+        text-align: left;
+    }
+`
+
+const PointItem = styled.span`
+    text-align: left;
+    margin-bottom: 8px;
     font-family: "Patua One";
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
@@ -161,6 +215,12 @@ const CountdownTimerText = styled(Countdown)`
   -webkit-text-fill-color: transparent;
   -webkit-text-stroke-color: black;
   -webkit-text-stroke-width: 4px;
+
+  @media (max-width: 768px) {
+      font-size: 60px;
+      -webkit-text-stroke-width: 2px;
+      margin-top: 25%;
+  }
 `
 
 const EmailInput = styled.input`
