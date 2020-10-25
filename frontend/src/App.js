@@ -1,10 +1,10 @@
 import React from 'react';
-import Widget from './components/Widget';
+import Lottery from './components/Lottery';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-  return <Widget />
+  return <Lottery />
 }
 
 export default App;

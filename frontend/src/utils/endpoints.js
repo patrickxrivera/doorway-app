@@ -10,4 +10,6 @@ export const GET_POSITION = '/user/position';
 
 export const REDEEM_REFERRAL_CODE = '/referral/redeem';
 
+export const SAVE_PHONE_NUMBER = 'phone-number';
+
 export const TWITTER_OAUTH_URL = "https://api.twitter.com/oauth/authorize";
