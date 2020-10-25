@@ -65,7 +65,7 @@ function Lottery() {
 
   return (
     <div style={{
-        backgroundImage: `url("/lottery-background.png")`,
+        backgroundImage: `url("/lottery-background-v2.png")`,
         backgroundSize: "cover",
         overflow: "hidden",
         display: "flex",
@@ -85,18 +85,9 @@ function Lottery() {
             marginTop: -300,
             fontSize: 50
         }}>
-            <CountdownTimerText daysInHours date={new Date("10/27/2020")} />
+            <CountdownTimerText daysInHours date={new Date("10/28/2020")} />
         </div>
-        <div style={{
-            marginTop: 80,
-            fontSize: 20,
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            color: "white",
-            width: 720
-        }}>
+        <HowItWorksContainer>
             <SmallHeader>
                 How it works:
             </SmallHeader>
@@ -117,11 +108,8 @@ function Lottery() {
                 <PointItem>10 points - Refer a friend</PointItem>
                 <PointItem>5 points - Join using referral link</PointItem>
             </PointItemContainer>
-        </div>
-        <div style={{
-            marginTop: 80,
-            marginBottom: 280
-        }}>
+        </HowItWorksContainer>
+        <GetNotifiedContainer>
             <SmallHeader>
                 Get notified before the public:
             </SmallHeader>
@@ -136,7 +124,7 @@ function Lottery() {
                 {errorMessage && <ErrorMessageContainer>
                     <span>{errorMessage}</span>
                 </ErrorMessageContainer>}
-        </div>
+        </GetNotifiedContainer>
         <a href="https://a07npyf3mhd9.landen.co/" target="_blank">
             <img src="/pyramid-scheme.png" style={{ 
                 width: "100%",
@@ -146,12 +134,36 @@ function Lottery() {
   );
 }
 
+const GetNotifiedContainer = styled.div`
+    margin-top: 80px;
+    margin-bottom: 280px;
+
+    @media (max-width: 768px) {
+        margin-bottom: 140px;
+    }
+`
+
+const HowItWorksContainer = styled.div`
+    margin-top: 80px;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    width: 720px;
+
+    @media (max-width: 768px) {
+        width: 330px;
+    }
+`
+
 const TwitterBoardImage = styled.img`
     height: 700px;
     position: relative;
     max-width: 924;
 
-    @media (min-width: 768px) {
+    @media (max-width: 768px) {
         height: 300px;
     }
 `
@@ -179,6 +191,10 @@ const PatuaText = styled.span`
     font-family: "Patua One";
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
+
+    @media (max-width: 768px) {
+        text-align: left;
+    }
 `
 
 const PointItem = styled.span`
@@ -200,10 +216,10 @@ const CountdownTimerText = styled(Countdown)`
   -webkit-text-stroke-color: black;
   -webkit-text-stroke-width: 4px;
 
-  @media (min-width: 768px) {
+  @media (max-width: 768px) {
       font-size: 60px;
       -webkit-text-stroke-width: 2px;
-      margin-top: 20%;
+      margin-top: 25%;
   }
 `
 
