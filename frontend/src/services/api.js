@@ -3,7 +3,7 @@ import config from "../config";
 
 class APIClient {
     constructor() {
-       axios.defaults.baseURL = config.apiUrl;
+       axios.defaults.baseURL = "https://doorway-backend-api.onrender.com";
        this.client = axios;
     }
 

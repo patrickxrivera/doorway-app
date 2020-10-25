@@ -1,3 +1,3 @@
 export default {
-    apiUrl: "https://follow-gate-backend.onrender.com"
+    apiUrl: "https://doorway-backend-api.onrender.com"
 }
