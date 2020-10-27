@@ -1,15 +1,12 @@
 {
     "development": {
-        "username": "doorway_user",
-        "password": "4wl0e0ssDt3RmjZHvNAhcQBXYQztDcCu",
+        "username": "patrickrivera",
+        "password": "null",
         "database": "doorway",
-        "host": "oregon-postgres.render.com",
+        "host": "127.0.0.1",
         "port": "5432",
         "dialect": "postgres",
-        "seederStorage": "sequelize",
-        "dialectOptions": {
-            "ssl": true
-        }
+        "seederStorage": "sequelize"
     },
     "staging": {
         "use_env_variable": "STAGING_ENV_DATABASE_URL",
