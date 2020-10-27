@@ -1,11 +1,59 @@
 import React, { useState, useEffect } from 'react';
-import Table from "react-bootstrap/Table";
+import BootstrapTable from "react-bootstrap-table-next";
 import styled from "styled-components";
 import { getLeaderboard } from '../../api/leaderboard';
 import { LoadingComponent } from '../Loading';
 import ClockLoader from "react-spinners/ClockLoader";
+import paginationFactory from 'react-bootstrap-table2-paginator';
+import NavBar from '../NavBar';
 
 const buildTwitterLink = (screenName) => `https://twitter.com/${screenName}`;
+
+const trim = (screenName) => screenName.length > 23 ? screenName.slice(0, 23) + "..." : screenName;
+
+const columns = [
+  {
+    dataField: 'position',
+    text: '#'
+  }, 
+  {
+    dataField: 'username',
+    text: 'Username'
+  }, 
+  {
+    dataField: 'tickets',
+    text: 'Tickets'
+  }
+];
+
+const buildOptionsFor = (leaderboard) => ({
+  paginationSize: 4,
+  pageStartIndex: 0,
+  firstPageText: 'First',
+  prePageText: 'Back',
+  nextPageText: 'Next',
+  lastPageText: 'Last',
+  nextPageTitle: 'First page',
+  prePageTitle: 'Pre page',
+  firstPageTitle: 'Next page',
+  lastPageTitle: 'Last page',
+  showTotal: true,
+  paginationTotalRenderer: customTotal,
+  disablePageTitle: true,
+  sizePerPageList: [{
+    text: '10', value: 10
+  }, {
+    text: '25', value: 25
+  }, {
+    text: 'All', value: leaderboard.length
+  }]
+})
+
+const customTotal = (from, to, size) => (
+  <span className="react-bootstrap-table-pagination-total" style={{color: "white"}}>
+    {" "}Showing {from} to {to} of {size} Results
+  </span>
+);
 
 function Leaderboard() {
   const [leaderboard, setLeaderboard] = useState(null);
@@ -14,72 +62,26 @@ function Leaderboard() {
     const callGetLeaderboard = async () => {
       // TODO: handle error
       const leaderboard = await getLeaderboard();
-      setLeaderboard([
-          {
-              screenName: "patrickxrivera",
-              points: 10
-          },
-          {
-            screenName: "patrickxrivera",
-            points: 10
-        },
-        {
-            screenName: "patrickxrivera",
-            points: 10
-        },
-        {
-            screenName: "patrickxrivera",
-            points: 10
-        },
-        {
-            screenName: "patrickxrivera",
-            points: 10
-        },
-        {
-            screenName: "patrickxrivera",
-            points: 10
-        },
-        {
-            screenName: "patrickxrivera",
-            points: 10
-        },
-        {
-            screenName: "patrickxrivera",
-            points: 10
-        },
-        {
-            screenName: "patrickxrivera",
-            points: 10
-        },
-        {
-            screenName: "patrickxrivera",
-            points: 10
-        },
-        {
-            screenName: "patrickxrivera",
-            points: 10
-        },
-        {
-            screenName: "patrickxrivera",
-            points: 10
-        },
-        {
-            screenName: "patrickxrivera",
-            points: 10
-        },
-        {
-            screenName: "patrickxrivera",
-            points: 10
-        },
-        {
-            screenName: "patrickxrivera",
-            points: 10
-        },
-        {
-            screenName: "patrickxrivera",
-            points: 10
-        },
-      ]);
+
+      // const formattedLeaderboard = leaderboard.map(({ screenName, points }, idx) => ({
+      //   position: idx + 1,
+      //   username: <StyledLink href={buildTwitterLink(screenName)} target="_blank">{trim(screenName)}</StyledLink>,
+      //   tickets: points
+      // }))
+
+      let formattedLeaderboard = [];
+
+      for (let i = 0; i < 100; i++) {
+        const screenName = "patrickxrivera";
+
+        formattedLeaderboard.push({
+          position: i + 1,
+          username: <StyledLink href={buildTwitterLink(screenName)} target="_blank">{trim(screenName)}</StyledLink>,
+          tickets: 350 - i + 10
+        })
+      }
+
+      setLeaderboard(formattedLeaderboard);
     }
 
     callGetLeaderboard();
@@ -94,9 +96,11 @@ function Leaderboard() {
     );
   }
 
+  const options = buildOptionsFor(leaderboard);
+
   return (
     <div style={{
-        backgroundImage: `url("/lottery-background-v4.png")`,
+      backgroundImage: `url("/images/lottery-background-v2.png")`,
         backgroundSize: "cover",
         overflow: "hidden",
         display: "flex",
@@ -105,26 +109,17 @@ function Leaderboard() {
         alignItems: "center",
         position: "relative"
     }}>
+        <NavBar />
         <HeaderText>Leaderboard</HeaderText>
         <TableContainer>
-        <Table bordered responsive style={{color: "white", fontWeight: "bold"}}>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Username</th>
-              <th>Points</th>
-            </tr>
-          </thead>
-          <tbody>
-            {leaderboard.map(({ screenName, points }, idx) => (
-              <tr key={idx}>
-                <td>{idx + 1}</td>
-                <td><StyledLink href={buildTwitterLink(screenName)} target="_blank">{screenName}</StyledLink></td>
-                <td>{points}</td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
+          <BootstrapTable 
+            keyField={"position"}
+            columns={columns}
+            data={leaderboard}
+            rowStyle={{color: "white", fontWeight: "bold"}}
+            headerClasses="__leaderboard-white-font"
+            pagination={paginationFactory(options)}
+          />
       </TableContainer>
     </div>
   );
@@ -147,8 +142,10 @@ const Header = styled.h2`
 const TableContainer = styled.div`
   display: flex;
   justify-content: center;
-  width: 600px;
+  flex-direction: column;
+  width: 700px;
   margin: 48px 0;
+  margin-bottom: 100px;
 `
 
 const Container = styled.div`
@@ -168,6 +165,12 @@ const HeaderText = styled.div`
   -webkit-text-fill-color: transparent;
   -webkit-text-stroke-color: black;
   -webkit-text-stroke-width: 4px;
+
+  @media (max-width: 768px) {
+    width: 98%;
+    font-size: 70px;
+    text-align: center;
+  }
 `
 
 export default Leaderboard;

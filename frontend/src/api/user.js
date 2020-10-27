@@ -7,9 +7,9 @@ export const getPosition = async () => {
     try {
         const res = await api.get(GET_POSITION);
         
-        const { position } = res.data;
+        const { position, odds } = res.data;
         
-        return position;
+        return { position, odds };
     } catch (e) {
         Sentry.captureMessage(getErrorMessageFromResponse(e));
         return null;

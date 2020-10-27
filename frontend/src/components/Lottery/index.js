@@ -12,11 +12,12 @@ import {
   JoinContainer,
   PinkButton,
 } from "./styles";
+import NavBar from '../NavBar';
 
 function Lottery() {
   return (
     <div style={{
-        backgroundImage: `url("/lottery-background-v2.png")`,
+        backgroundImage: `url("/images/lottery-background-v2.png")`,
         backgroundSize: "cover",
         overflow: "hidden",
         display: "flex",
@@ -25,7 +26,8 @@ function Lottery() {
         alignItems: "center",
         position: "relative"
     }}>
-        <TwitterBoardImage src="/twitter-board.png" />
+        <NavBar />
+        <TwitterBoardImage src="/images/twitter-board.png" />
         <div style={{
             color: "#fff",
             position: "relative",
@@ -36,7 +38,7 @@ function Lottery() {
             marginTop: -300,
             fontSize: 50
         }}>
-            <CountdownTimerText daysInHours date={new Date("10/28/2020")} />
+            <CountdownTimerText daysInHours date={new Date("10/29/2020")} />
         </div>
         <HowItWorksContainer>
             <SmallHeader>
