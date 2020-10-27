@@ -137,6 +137,14 @@ export const ReferralInputContainer = styled.div`
   height: 70px;
   width: 500px;
   font-size: 25px;
+
+  @media (max-width: 768px) {
+    padding: 18px 10px;
+    width: 100%;
+    margin-bottom: 12px;
+    margin-right: 0px;
+    font-size: 20px;
+}
 `
 
 export const EmailInputSectionContainer = styled.div`
@@ -169,6 +177,7 @@ export const PinkButton = styled.div`
   box-shadow: rgba(15, 15, 15, 0.1) 0px 1px 2px;
   text-align: center;
   outline: none;
+  width: ${props => props.width ? `${props.width}` : null};
 
   &:focus {
     border: 1px solid black;
@@ -176,6 +185,10 @@ export const PinkButton = styled.div`
 
   &:hover {
     text-decoration: none;
+  }
+
+  @media (max-width: 768px) {
+    width: ${props => props.mobileWidth ? props.mobileWidth : null};
   }
 `
 

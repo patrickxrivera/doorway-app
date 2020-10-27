@@ -13,11 +13,16 @@ import {
     PinkButton,
 } from "../Lottery/styles";
 import config from '../../config';
+import ClipLoader from "react-spinners/ClipLoader";
+import NavBar from '../NavBar';
 
 function GetStarted() {
     const [showRequestTokenErrorMessage, setShowRequestTokenErrorMessage] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const handleGetStartedClick = async () => {
+        setLoading(true);
+        
         const requestToken = await getRequestToken();
 
         if (!requestToken) {
@@ -30,7 +35,7 @@ function GetStarted() {
 
     return (
         <div style={{
-            backgroundImage: `url("/lottery-background-v4.png")`,
+            backgroundImage: `url("/images/lottery-background-v4.png")`,
             backgroundSize: "cover",
             overflow: "hidden",
             display: "flex",
@@ -39,27 +44,28 @@ function GetStarted() {
             alignItems: "center",
             position: "relative"
         }}>
+            <NavBar />
             <HeaderText>Instant Influencer Lottery</HeaderText>
             <HowItWorksContainer marginTop={20} width={840}>
                 <PatuaText fontSize={25}>
                     Welcome to the ✨ Instant Influencer Lottery ✨
                 </PatuaText>
                 <PatuaText fontSize={25}>
-                    The rules are simple. You have until October 30th at 8AM PT to connect your Twitter account and earn points by referring others.
+                    The rules are simple. You have until October 30th at 8AM PT to connect your Twitter account and earn lottery tickets by referring others.
                 </PatuaText>
                 <PatuaText fontSize={25}>
-                    Once the time is up, your points will be converted to lottery tickets and we will randomly select a person to receive a follow from everybody that connected their Twitter account.
+                    Once the time is up, we will randomly select a winning lottery ticket. Whoever has it will automatically receive a follow from everybody that connected their Twitter account.
                 </PatuaText>
                 <SmallHeader fontSize={35} style={{marginTop: 40}}>
-                    Point System
+                    Ticket System
                 </SmallHeader>
                 <PointItemContainer>
-                    <PointItem fontSize={25}>10 points - Connect your Twitter account</PointItem>
-                    <PointItem fontSize={25}>10 points - Refer a friend</PointItem>
-                    <PointItem fontSize={25}>5 points - Join using referral link</PointItem>
+                    <PointItem fontSize={25}>Earn 10 tickets - Connect your Twitter account</PointItem>
+                    <PointItem fontSize={25}>Earn 10 tickets - Refer a friend</PointItem>
+                    <PointItem fontSize={25}>Earn 5 tickets - Join using referral link</PointItem>
                 </PointItemContainer>
                 <ConnectTwitterContainer>
-                    <PinkButton onClick={handleGetStartedClick}>Connect Twitter</PinkButton>
+                    <PinkButton width={250} onClick={handleGetStartedClick}>{loading ? <ClipLoader color="white" size={30} /> : "Connect Twitter"}</PinkButton>
                 </ConnectTwitterContainer>
             </HowItWorksContainer>
         </div>
@@ -86,6 +92,11 @@ const HeaderText = styled.div`
   -webkit-text-fill-color: transparent;
   -webkit-text-stroke-color: black;
   -webkit-text-stroke-width: 4px;
+
+    @media (max-width: 768px) {
+        font-size: 80px;
+        text-align: center;
+    }
 `
 
 export default GetStarted;

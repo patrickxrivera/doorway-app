@@ -7,6 +7,7 @@ import { getAccessToken } from '../../api/twitter';
 import { redeemReferralCode } from '../../api/referral';
 import { useHistory } from "react-router-dom";
 import Cache from "../../services/cache";
+import NavBar from '../NavBar';
 
 function Loading() {
     const history = useHistory();
@@ -68,7 +69,7 @@ function Loading() {
 export function LoadingComponent({ headerText, Icon }) {
   return (
     <div style={{
-      backgroundImage: `url("/lottery-background-v4.png")`,
+      backgroundImage: `url("/images/lottery-background-v4.png")`,
       backgroundSize: "cover",
       overflow: "hidden",
       display: "flex",
@@ -77,6 +78,7 @@ export function LoadingComponent({ headerText, Icon }) {
       alignItems: "center",
       position: "relative"
     }}>
+      <NavBar />
       <HeaderText>{headerText}</HeaderText>
       <LoadingIconContainer>
           <Icon size={250} color="#fff" />
@@ -99,6 +101,11 @@ const HeaderText = styled.div`
   -webkit-text-fill-color: transparent;
   -webkit-text-stroke-color: black;
   -webkit-text-stroke-width: 4px;
+
+  @media (max-width: 768px) {
+    font-size: 65px;
+    text-align: center;
+}
 `
 
 export default Loading;

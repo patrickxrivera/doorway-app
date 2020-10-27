@@ -15,10 +15,12 @@ import { getReferralCode } from '../../api/referral';
 import { getPosition } from '../../api/user';
 import { LoadingComponent } from '../Loading';
 import ClockLoader from "react-spinners/ClockLoader";
+import NavBar from '../NavBar';
 
 function Refer() {
     const [referralLink, setReferralLink] = useState(null);
     const [position, setPosition] = useState(null);
+    const [odds, setOdds] = useState(null);
     const [copied, setCopied] = useState(false);
     
     useEffect(() => {
@@ -26,7 +28,7 @@ function Refer() {
             const referralCodePromise = getReferralCode();
             const positionPromise = getPosition();
 
-            const [referralCode, position] = await Promise.all([
+            const [referralCode, {position, odds}] = await Promise.all([
                 referralCodePromise,
                 positionPromise
             ])
@@ -35,6 +37,7 @@ function Refer() {
 
             setReferralLink(referralLink);
             setPosition(position);
+            setOdds(odds);
         }
 
         fetchAPI();
@@ -51,7 +54,7 @@ function Refer() {
 
   return (
     <div style={{
-        backgroundImage: `url("/lottery-background-v4.png")`,
+        backgroundImage: `url("/images/lottery-background-v4.png")`,
         backgroundSize: "cover",
         overflow: "hidden",
         display: "flex",
@@ -60,13 +63,14 @@ function Refer() {
         alignItems: "center",
         position: "relative"
     }}>
+        <NavBar />
         <HeaderText>You're {ordinalSuffixOf(position)} In Line!</HeaderText>
         <HowItWorksContainer marginTop={20} width={840}>
             <PatuaText fontSize={25}>
                 Congrats on joining the ✨ Instant Influencer Lottery ✨
             </PatuaText>
             <PatuaText fontSize={25}>
-                You currently have a 3% chance of winning
+                You currently have a {odds} chance of winning
             </PatuaText>
             <PatuaText fontSize={25}>
                 To increase your odds, get your friends to join using the link below.
@@ -79,7 +83,7 @@ function Refer() {
                     <ReferralInput value={referralLink} />
                 </ReferralInputContainer>
                 <CopyToClipboard text={referralLink} onCopy={() => setCopied(true)}>
-                    <PinkButton width={147} marginTop={0}>{copied ? "Copied" : "Copy"}</PinkButton>
+                    <PinkButton mobileWidth={"100%"} width={147} marginTop={0}>{copied ? "Copied" : "Copy"}</PinkButton>
                 </CopyToClipboard>
             </ReferralContainer>
             <LeaderboardContainer>
@@ -119,6 +123,12 @@ const ReferralContainer = styled.div`
     margin-top: 18px; 
     display: flex;
     align-items: center;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        width: 98%;
+    }
+}
 `
 
 const HeaderText = styled.div`
@@ -130,6 +140,11 @@ const HeaderText = styled.div`
   -webkit-text-fill-color: transparent;
   -webkit-text-stroke-color: black;
   -webkit-text-stroke-width: 4px;
+
+    @media (max-width: 768px) {
+        font-size: 80px;
+        text-align: center;
+    }
 `
 
 export default Refer;

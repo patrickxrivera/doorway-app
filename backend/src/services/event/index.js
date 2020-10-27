@@ -39,6 +39,38 @@ class EventService {
             eventTypeId: eventTypeRecord.id
         })
     }
+
+    static async totalPoints() {
+        const query = `
+            select 
+                sum(et.points) 
+            from 
+                public."events" e join 
+                public."eventTypes" et on e."eventTypeId" = et.id;
+        `
+
+        const [[{sum}]] = await models.sequelize.query(query);
+        
+        return sum;
+    }
+
+    static async pointsByUserId(userId) {
+        const query = `
+            select 
+                sum(et.points) 
+            from 
+                public."events" e join 
+                public."eventTypes" et on e."eventTypeId" = et.id
+            where
+                e."userId" = :userId;
+        `
+
+        const [[{sum}]] = await models.sequelize.query(query, {
+            replacements: { userId },
+        });
+        
+        return sum;
+    }
 }
 
 module.exports = EventService;
