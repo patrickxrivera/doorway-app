@@ -16,6 +16,10 @@ class Cache {
         api.removeToken();
     }
 
+    static getToken() {
+        return localStorage.getItem(KEYS.TOKEN);
+    }
+
     static saveReferralCode(referralCode) {
         localStorage.setItem(KEYS.REFERRAL_CODE, referralCode);
     }

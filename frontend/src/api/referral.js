@@ -5,7 +5,7 @@ import api from "../services/api";
 
 export const getReferralCode = async () => {
     try {
-        const res = await api.post(GET_REFERRAL_CODE);
+        const res = await api.get(GET_REFERRAL_CODE);
         
         const { referralCode } = res.data;
         

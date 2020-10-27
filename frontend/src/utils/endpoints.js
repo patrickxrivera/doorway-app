@@ -12,4 +12,6 @@ export const REDEEM_REFERRAL_CODE = '/referral/redeem';
 
 export const SAVE_PHONE_NUMBER = 'phone-number';
 
+export const GET_LEADERBOARD = '/leaderboard';
+
 export const TWITTER_OAUTH_URL = "https://api.twitter.com/oauth/authorize";
