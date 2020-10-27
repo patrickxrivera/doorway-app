@@ -13,6 +13,8 @@ class Leaderboard {
                 join public."internetIdentities" ii on ii."userId" = e."userId" 
             where 
                 ii."identityType" = :twitterIdentityType
+            and
+                ii."revokedAt" is null
             group by 
                 1 
             order by 

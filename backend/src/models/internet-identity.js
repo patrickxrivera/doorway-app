@@ -1,6 +1,6 @@
 'use strict';
 
-const { Model } = require('sequelize');
+const { Model, Op } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class InternetIdentity extends Model {
@@ -17,7 +17,14 @@ module.exports = (sequelize, DataTypes) => {
     revokedAt: DataTypes.DATE
   }, {
     sequelize,
-    modelName: 'internetIdentity'
+    modelName: 'internetIdentity',
+    defaultScope: {
+      where: {
+        revokedAt: {
+          [Op.ne]: null
+        }
+      }
+    },
   });
   
   return InternetIdentity;

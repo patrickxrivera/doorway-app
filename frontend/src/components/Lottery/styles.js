@@ -192,6 +192,44 @@ export const PinkButton = styled.div`
   }
 `
 
+export const Button = styled.div`
+  font-family: "Patua One";
+  margin-top: ${props => props.marginTop || props.marginTop === 0 ? `${props.marginTop}px` : "18px"};
+  width: ${props => props.width ? `${props.width}px` : null};
+  user-select: none;
+  transition: background 20ms ease-in 0s;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  height: 36px;
+  border-radius: 5px;
+  font-size: 25px;
+  line-height: 1;
+  padding: 30px 34px;
+  border: 2px solid black;
+  font-weight: 500;
+  background: ${props => props.background};
+  color: white;
+  box-shadow: rgba(15, 15, 15, 0.1) 0px 1px 2px;
+  text-align: center;
+  outline: none;
+  width: ${props => props.width ? `${props.width}` : null};
+
+  &:focus {
+    border: 1px solid black;
+  }
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  @media (max-width: 768px) {
+    width: ${props => props.mobileWidth ? props.mobileWidth : null};
+  }
+`
+
 export const ConnectTwitterButton = styled.div`
   font-family: "Patua One";
   margin-top: 18px;

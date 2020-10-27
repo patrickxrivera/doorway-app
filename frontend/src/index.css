@@ -18,3 +18,14 @@ code {
 .__leaderboard-white-font {
   color: white;
 }
+
+.__leaderboard-row {
+  color: white;
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 768px) {
+  .__leaderboard-row {
+    font-size: 14px;
+  }
+}

@@ -16,6 +16,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.css';
+import Settings from './components/Settings';
 
 const AppLoadingContainer = styled.div`
   height: ${props => props.height ? `${props.height}px` : "1050px"};
@@ -80,6 +81,9 @@ function App() {
           </Route>
           <Route path="/leaderboard">
             <Leaderboard />
+          </Route>
+          <Route path="/settings">
+            <Settings />
           </Route>
         </Switch>
       </div>

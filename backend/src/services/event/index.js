@@ -43,10 +43,13 @@ class EventService {
     static async totalPoints() {
         const query = `
             select 
-                sum(et.points) 
+                sum(et.points)
             from 
                 public."events" e join 
-                public."eventTypes" et on e."eventTypeId" = et.id;
+                public."eventTypes" et on e."eventTypeId" = et.id
+                join public."internetIdentities" ii on ii."userId" = e."userId"
+            where
+                ii."revokedAt" is null;
         `
 
         const [[{sum}]] = await models.sequelize.query(query);
