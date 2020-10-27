@@ -4,7 +4,13 @@ const ErrorHandler = require("../services/error-handler");
 
 const auth = (req, res, next) => {
     try {
-        const token = req.headers.authorization.split(' ')[1];
+        let token = null;
+
+        try {
+            token = req.headers.authorization.split(' ')[1];
+        } catch (e) {
+            throw new Error("No bearer token sent from the client.");
+        }
         
         const decodedToken = jwt.verify(token, jwtSecretKey);
         

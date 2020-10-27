@@ -10,6 +10,18 @@ class ReferralCodeService {
             code
         })
     }
+
+    static async upsert(userId) {
+        const existingReferralCode = await models.referralCode.findOne({
+            where: { userId }
+        });
+
+        if (existingReferralCode) {
+            return existingReferralCode;
+        }
+
+        return ReferralCodeService.create(userId);
+    }
 }
 
 module.exports = ReferralCodeService;

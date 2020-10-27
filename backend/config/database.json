@@ -1,7 +1,7 @@
 {
     "development": {
         "username": "patrickrivera",
-        "password": null,
+        "password": "null",
         "database": "doorway",
         "host": "127.0.0.1",
         "port": "5432",

@@ -14,6 +14,18 @@ const setupReferralRoutes = (server, { auth }) => {
         }
     });
 
+    server.get("/referral/code", auth, async (req, res, next) => {
+        try {
+            const { userId } = req;
+            
+            const { code: referralCode } = await ReferralCodeService.upsert(userId);
+            
+            res.json({ referralCode });
+        } catch (e) {
+            next(e);
+        }
+    });
+
     server.post("/referral/redeem", auth, async (req, res, next) => {
         try {
             const { userId } = req;
