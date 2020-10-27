@@ -92,10 +92,10 @@ const HeaderText = styled.div`
   -webkit-text-fill-color: transparent;
   -webkit-text-stroke-color: black;
   -webkit-text-stroke-width: 4px;
+  text-align: center;
 
     @media (max-width: 768px) {
         font-size: 80px;
-        text-align: center;
     }
 `
 

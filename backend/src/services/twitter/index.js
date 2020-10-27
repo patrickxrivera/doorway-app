@@ -1,8 +1,9 @@
 const Twitter = require("twitter-lite");
+const models = require("../../models");
 const { 
   callbackUrl: callbackUrlConfig, 
   twitterConsumerKey, 
-  twitterConsumerSecret 
+  twitterConsumerSecret
 } = require("../../config");
 
 const TWITTER_BASE_URL = "https://twitter.com";
@@ -21,6 +22,20 @@ class TwitterService {
   static async follow(data) {
     const svc = new TwitterService();
     return svc.follow(data);
+  }
+
+  static async revokeAccessToken(userId) {
+    await models.internetIdentity.update(
+      {
+        revokedAt: new Date()
+      },
+      {
+        where: { 
+          userId,
+          revokedAt: null
+        }
+      }
+    )
   }
 
   constructor({ client = null, callbackUrl = null } = {}) {

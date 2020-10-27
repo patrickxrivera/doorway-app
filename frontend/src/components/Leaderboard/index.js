@@ -27,10 +27,10 @@ const columns = [
     dataField: 'tickets',
     text: 'Tickets'
   },
-  {
-    dataField: 'twitterProfile',
-    text: 'Twitter Profile'
-  }
+  // {
+  //   dataField: 'twitterProfile',
+  //   text: 'Twitter Profile'
+  // }
 ];
 
 const buildOptionsFor = (leaderboard) => ({
@@ -47,13 +47,20 @@ const buildOptionsFor = (leaderboard) => ({
   showTotal: true,
   paginationTotalRenderer: customTotal,
   disablePageTitle: true,
-  sizePerPageList: [{
-    text: '10', value: 10
-  }, {
-    text: '25', value: 25
-  }, {
-    text: 'All', value: leaderboard.length
-  }]
+  sizePerPageList: [
+    {
+      text: '25', value: 25
+    }, 
+    {
+      text: '50', value: 50
+    },
+    {
+      text: '100', value: 100
+    }, 
+    {
+      text: 'All', value: leaderboard.length
+    }
+  ]
 })
 
 const customTotal = (from, to, size) => (
@@ -83,9 +90,9 @@ function Leaderboard() {
 
         formattedLeaderboard.push({
           position: i + 1,
-          username: screenName,
+          username: trim(screenName),
           tickets: 350 - i + 10,
-          twitterProfile: <StyledLink href={buildTwitterLink(screenName)} target="_blank">Link</StyledLink>,
+          // twitterProfile: <StyledLink href={buildTwitterLink(screenName)} target="_blank">Link</StyledLink>,
         })
       }
 
@@ -119,27 +126,27 @@ function Leaderboard() {
     }}>
         <NavBar />
         <HeaderText>Leaderboard</HeaderText>
-        <TableContainer>
-        <ToolkitProvider
-          keyField="username"
-          data={leaderboard}
-          columns={columns}
-          search
-        >
-          {(props) => (
-            <div>
-              <SearchBar { ...props.searchProps } />
-              <hr />
-              <BootstrapTable
-                keyField={"position"}
-                rowStyle={{color: "white", fontWeight: "bold"}}
-                headerClasses="__leaderboard-white-font"
-                pagination={paginationFactory(options)}
-                { ...props.baseProps }
-              />
-            </div>
-          )}
-        </ToolkitProvider>
+        <TableContainer mobileWidth={window.screen.width - 15}>
+          <ToolkitProvider
+            keyField="username"
+            data={leaderboard}
+            columns={columns}
+            search
+          >
+            {(props) => (
+              <div>
+                <SearchBar { ...props.searchProps } />
+                <hr />
+                <BootstrapTable
+                  keyField={"position"}
+                  rowClasses="__leaderboard-row"
+                  headerClasses="__leaderboard-white-font"
+                  pagination={paginationFactory(options)}
+                  { ...props.baseProps }
+                />
+              </div>
+            )}
+          </ToolkitProvider>
       </TableContainer>
     </div>
   );
@@ -155,10 +162,6 @@ const StyledLink = styled.a`
     }
 `
 
-const Header = styled.h2`
-  margin-bottom: 24px;
-`
-
 const TableContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -166,20 +169,17 @@ const TableContainer = styled.div`
   width: 700px;
   margin: 48px 0;
   margin-bottom: 100px;
-`
 
-const Container = styled.div`
-  display: flex;
-  justify-content: center; 
-  margin-top: 16px;
-  align-items: center;
-  flex-direction: column;
+  @media (max-width: 768px) {
+    width: ${props => props.mobileWidth ? `${props.mobileWidth}px` : null};
+  }
 `
 
 const HeaderText = styled.div`
     font-size: 140px;
   color: #white;
   font-family: Sansita;
+  text-align: center;
   background: -webkit-linear-gradient(213.02deg, #EEB911 16.36%, #D48311 22.95%, #CE6E18 26.29%, #CC661B 29.32%, #D26F19 32.71%, #E08115 35.85%, #EE9611 38.91%, #EEBB11 42.37%, #EBEBA6 49.19%, #EEBB11 64.14%, #D1721A 76.13%, #CC661B 84.72%, #D27419 97.57%, #ECB712 117.14%, #CECC00 150.06%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -187,9 +187,8 @@ const HeaderText = styled.div`
   -webkit-text-stroke-width: 4px;
 
   @media (max-width: 768px) {
-    width: 98%;
     font-size: 70px;
-    text-align: center;
+    -webkit-text-stroke-width: 2px;
   }
 `
 

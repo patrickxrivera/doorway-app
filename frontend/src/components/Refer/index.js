@@ -91,7 +91,7 @@ function Refer() {
                     Leaderboard
                 </SmallHeader>
                 <PatuaText fontSize={25}>
-                    See your position in real-time on <LeaderboardLink to="/leaderboard">the leaderboard</LeaderboardLink>. Remember to check your Twitter account after 8am PT on October 30th to see if you won.
+                    See your position in real-time on <LeaderboardLink to="/leaderboard">the leaderboard</LeaderboardLink>. We will DM the winner at 8am PT on October 30th.
                 </PatuaText>
             </LeaderboardContainer>
         </HowItWorksContainer>
@@ -133,7 +133,7 @@ const ReferralContainer = styled.div`
 
 const HeaderText = styled.div`
     font-size: 140px;
-  color: #white;
+  text-align: center;
   font-family: Sansita;
   background: -webkit-linear-gradient(213.02deg, #EEB911 16.36%, #D48311 22.95%, #CE6E18 26.29%, #CC661B 29.32%, #D26F19 32.71%, #E08115 35.85%, #EE9611 38.91%, #EEBB11 42.37%, #EBEBA6 49.19%, #EEBB11 64.14%, #D1721A 76.13%, #CC661B 84.72%, #D27419 97.57%, #ECB712 117.14%, #CECC00 150.06%);
   -webkit-background-clip: text;
@@ -143,7 +143,6 @@ const HeaderText = styled.div`
 
     @media (max-width: 768px) {
         font-size: 80px;
-        text-align: center;
     }
 `
 

@@ -19,7 +19,7 @@ function NavBar() {
                     <StyledNavLink to="/refer">Earn tickets</StyledNavLink>
                 </NavBarItem>
                 <NavBarItem marginRight={40} marginRightMobile={20}>
-                    <StyledNavLink to="/get-started">Settings</StyledNavLink>
+                    <StyledNavLink to="/settings">Settings</StyledNavLink>
                 </NavBarItem>
             </React.Fragment>
         ) : (

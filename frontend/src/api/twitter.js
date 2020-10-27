@@ -1,4 +1,4 @@
-import { GET_REQUEST_TOKEN, GET_ACCESS_TOKEN, FOLLOW_ON_TWITTER } from "../utils/endpoints";
+import { GET_REQUEST_TOKEN, GET_ACCESS_TOKEN, FOLLOW_ON_TWITTER, DISCONNECT_TWITTER } from "../utils/endpoints";
 import { getErrorMessageFromResponse } from "../utils/helpers";
 import * as Sentry from "@sentry/react";
 import api from "../services/api";
@@ -28,4 +28,17 @@ export const getAccessToken = async ({ oAuthToken, oAuthVerifier }) => {
 export const followOnTwitter = async () => {
     const res = await api.post(FOLLOW_ON_TWITTER);
     return res.data;
+}
+
+export const disconnectTwitter = async () => {
+    try {
+        const response = await api.put(DISCONNECT_TWITTER);
+        
+        const { success } = response.data;
+        
+        return success;
+    } catch (e) {
+        Sentry.captureMessage(getErrorMessageFromResponse(e));
+        return null;
+    }
 }

@@ -89,6 +89,18 @@ const setupTwitterRoutes = (server, { auth }) => {
             next(e);
         }
     });
+
+    server.put("/twitter/revoke-access-token", auth, async (req, res, next) => {
+        try {
+            const { userId } = req;
+            
+            await TwitterService.revokeAccessToken(userId);
+            
+            res.json({ success: true });
+        } catch (e) {
+            next(e);
+        }
+    });
 }
 
 module.exports = { setupTwitterRoutes };
