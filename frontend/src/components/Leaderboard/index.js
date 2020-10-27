@@ -6,6 +6,9 @@ import { LoadingComponent } from '../Loading';
 import ClockLoader from "react-spinners/ClockLoader";
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import NavBar from '../NavBar';
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+
+const { SearchBar } = Search;
 
 const buildTwitterLink = (screenName) => `https://twitter.com/${screenName}`;
 
@@ -23,6 +26,10 @@ const columns = [
   {
     dataField: 'tickets',
     text: 'Tickets'
+  },
+  {
+    dataField: 'twitterProfile',
+    text: 'Twitter Profile'
   }
 ];
 
@@ -76,8 +83,9 @@ function Leaderboard() {
 
         formattedLeaderboard.push({
           position: i + 1,
-          username: <StyledLink href={buildTwitterLink(screenName)} target="_blank">{trim(screenName)}</StyledLink>,
-          tickets: 350 - i + 10
+          username: screenName,
+          tickets: 350 - i + 10,
+          twitterProfile: <StyledLink href={buildTwitterLink(screenName)} target="_blank">Link</StyledLink>,
         })
       }
 
@@ -90,7 +98,7 @@ function Leaderboard() {
   if (!leaderboard) {
     return (
         <LoadingComponent
-          headerText="Calculating the leaderboard   ..."
+          headerText="Leaderboard"
           Icon={ClockLoader}
         />
     );
@@ -112,14 +120,26 @@ function Leaderboard() {
         <NavBar />
         <HeaderText>Leaderboard</HeaderText>
         <TableContainer>
-          <BootstrapTable 
-            keyField={"position"}
-            columns={columns}
-            data={leaderboard}
-            rowStyle={{color: "white", fontWeight: "bold"}}
-            headerClasses="__leaderboard-white-font"
-            pagination={paginationFactory(options)}
-          />
+        <ToolkitProvider
+          keyField="username"
+          data={leaderboard}
+          columns={columns}
+          search
+        >
+          {(props) => (
+            <div>
+              <SearchBar { ...props.searchProps } />
+              <hr />
+              <BootstrapTable
+                keyField={"position"}
+                rowStyle={{color: "white", fontWeight: "bold"}}
+                headerClasses="__leaderboard-white-font"
+                pagination={paginationFactory(options)}
+                { ...props.baseProps }
+              />
+            </div>
+          )}
+        </ToolkitProvider>
       </TableContainer>
     </div>
   );
