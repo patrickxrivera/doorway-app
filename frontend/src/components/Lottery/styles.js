@@ -3,7 +3,7 @@ import Countdown from "react-countdown";
 
 export const JoinContainer = styled.div`
     margin-top: 80px;
-    margin-bottom: 280px;
+    margin-bottom: ${props => props.marginBottom ? `${props.marginBottom}px` : "200px"};
     display: flex;
     flex-direction: column;
     width: 80%;
@@ -31,9 +31,7 @@ export const HowItWorksContainer = styled.div`
 `
 
 export const TwitterBoardImage = styled.img`
-    height: 700px;
-    position: relative;
-    max-width: 924;
+    height: 500px;
 
     @media (max-width: 768px) {
         height: 300px;
@@ -48,6 +46,11 @@ export const SmallHeader = styled.span`
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 7px 14px #000000;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: #E40000;
+
+    @media (max-width: 768px) {
+      text-align: ${props => props.mobileTextAlign ? props.mobileTextAlign : null};
+      font-size: ${props => props.mobileFontSize ? `${props.mobileFontSize}px` : null};
+  }
 `
 
 export const PointItemContainer = styled.div`
@@ -57,16 +60,18 @@ export const PointItemContainer = styled.div`
 `
 
 export const PatuaText = styled.span`
-    text-align: center;
-    margin-top: 24px;
+    text-align: ${props => props.textAlign ? props.textAlign : "center"};
+    margin-top: ${props => props.marginTop ? props.marginTop : "24px"};
     font-size: ${props => props.fontSize ? `${props.fontSize}px` : null};
+    margin-left: ${props => props.marginLeft ? `${props.marginLeft}px` : null};
     font-family: "Patua One";
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
     color: #fff;
 
     @media (max-width: 768px) {
-        text-align: left;
+        text-align: ${props => props.mobileTextAlign ? props.mobileTextAlign : null};
+        font-size: ${props => props.mobileFontSize ? `${props.mobileFontSize}px` : null};
     }
 `
 
@@ -81,7 +86,7 @@ export const PointItem = styled.span`
 
 
 export const CountdownTimerText = styled(Countdown)`
-  font-size: 140px;
+  font-size: 120px;
   color: #white;
   font-family: Sansita;
   background: -webkit-linear-gradient(213.02deg, #EEB911 16.36%, #D48311 22.95%, #CE6E18 26.29%, #CC661B 29.32%, #D26F19 32.71%, #E08115 35.85%, #EE9611 38.91%, #EEBB11 42.37%, #EBEBA6 49.19%, #EEBB11 64.14%, #D1721A 76.13%, #CC661B 84.72%, #D27419 97.57%, #ECB712 117.14%, #CECC00 150.06%);
@@ -168,20 +173,22 @@ export const PinkButton = styled.div`
   white-space: nowrap;
   height: 36px;
   border-radius: 5px;
-  font-size: 25px;
+  font-size: ${props => props.fontSize ? `${props.fontSize}px` : "25px"};
   line-height: 1;
-  padding: 30px 34px;
-  border: 2px solid black;
+  padding: ${props => props.padding ? props.padding : "30px 34px"};
+  border: ${props => props.border ? props.border : "2px solid black"};
   font-weight: 500;
-  background: linear-gradient(128.65deg, rgb(223, 0, 107) 29.94%, rgb(255, 68, 158) 42.32%, rgb(255, 0, 168) 61.81%), rgb(255, 255, 255);
+  background: ${props => props.background ? props.background : "linear-gradient(128.65deg, rgb(223, 0, 107) 29.94%, rgb(255, 68, 158) 42.32%, rgb(255, 0, 168) 61.81%), rgb(255, 255, 255)"};
   color: white;
-  box-shadow: rgba(15, 15, 15, 0.1) 0px 1px 2px;
+  box-shadow: ${props => props.boxShadow ? props.boxShadow : "rgba(15, 15, 15, 0.1) 0px 1px 2px"};
   text-align: center;
   outline: none;
-  width: ${props => props.width ? `${props.width}` : null};
+  width: ${props => props.width ? props.width : null};
+  -webkit-text-stroke-width: ${props => props.strokeWidth ? props.strokeWidth : null};
+  -webkit-text-stroke-color: ${props => props.strokeColor ? props.strokeColor : null};
 
   &:focus {
-    border: 1px solid black;
+    border: ${props => props.border ? props.border : "2px solid black"};
   }
 
   &:hover {
@@ -190,6 +197,8 @@ export const PinkButton = styled.div`
 
   @media (max-width: 768px) {
     width: ${props => props.mobileWidth ? props.mobileWidth : null};
+    font-size: ${props => props.mobileFontSize ? `${props.mobileFontSize}px` : null};
+    padding: ${props => props.mobilePadding ? props.mobilePadding : null};
   }
 `
 
@@ -228,32 +237,5 @@ export const Button = styled.div`
 
   @media (max-width: 768px) {
     width: ${props => props.mobileWidth ? props.mobileWidth : null};
-  }
-`
-
-export const ConnectTwitterButton = styled.div`
-  font-family: "Patua One";
-  margin-top: 18px;
-  user-select: none;
-  transition: background 20ms ease-in 0s;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  white-space: nowrap;
-  height: 36px;
-  border-radius: 5px;
-  font-size: 25px;
-  line-height: 1;
-  padding: 28px;
-  font-weight: 500;
-  background: #1DA1F2;
-  color: white;
-  box-shadow: rgba(15, 15, 15, 0.1) 0px 1px 2px;
-  text-align: center;
-  outline: none;
-
-  &:focus {
-    border: 1px solid black;
   }
 `

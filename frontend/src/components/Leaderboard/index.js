@@ -110,16 +110,7 @@ function Leaderboard() {
   const options = buildOptionsFor(leaderboard);
 
   return (
-    <div style={{
-      backgroundImage: `url("/images/lottery-background-v2.png")`,
-        backgroundSize: "cover",
-        overflow: "hidden",
-        display: "flex",
-        justifyContent: "center",
-        flexDirection: "column",
-        alignItems: "center",
-        position: "relative"
-    }}>
+    <BackgroundImage imgHeight={window.screen.height}>
         <NavBar />
         <HeaderText>Leaderboard</HeaderText>
         <TableContainer mobileWidth={window.screen.width - 15}>
@@ -144,7 +135,7 @@ function Leaderboard() {
             )}
           </ToolkitProvider>
       </TableContainer>
-    </div>
+    </BackgroundImage>
   );
 }
 
@@ -186,6 +177,16 @@ const HeaderText = styled.div`
     font-size: 70px;
     -webkit-text-stroke-width: 2px;
   }
+`
+
+export const BackgroundImage = styled.div`
+  background-image: url("/images/lottery-background-v2.png");
+  background-size: cover;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: ${props => props.imgHeight ? `${props.imgHeight}px` : `${window.screen.height}px`};
 `
 
 export default Leaderboard;
