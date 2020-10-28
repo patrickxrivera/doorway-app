@@ -10,17 +10,16 @@ import {
     PinkButton,
     ReferralInputContainer,
 } from "../Lottery/styles";
-import { ordinalSuffixOf } from '../../utils/helpers';
 import { getReferralCode } from '../../api/referral';
 import { getPosition } from '../../api/user';
 import { LoadingComponent } from '../Loading';
 import ClockLoader from "react-spinners/ClockLoader";
 import NavBar from '../NavBar';
+import config from '../../config';
 
 function Refer() {
     const [referralLink, setReferralLink] = useState(null);
     const [position, setPosition] = useState(null);
-    const [odds, setOdds] = useState(null);
     const [copied, setCopied] = useState(false);
     
     useEffect(() => {
@@ -28,16 +27,15 @@ function Refer() {
             const referralCodePromise = getReferralCode();
             const positionPromise = getPosition();
 
-            const [referralCode, {position, odds}] = await Promise.all([
+            const [referralCode, { position }] = await Promise.all([
                 referralCodePromise,
                 positionPromise
             ])
             
-            const referralLink = `https://instantinfluencer.com?code=${referralCode}`; 
+            const referralLink = `${config.webAppUrl}?code=${referralCode}`; 
 
             setReferralLink(referralLink);
             setPosition(position);
-            setOdds(odds);
         }
 
         fetchAPI();
@@ -64,19 +62,16 @@ function Refer() {
         position: "relative"
     }}>
         <NavBar />
-        <HeaderText>You're {ordinalSuffixOf(position)} In Line!</HeaderText>
+        <HeaderText>You Received Ticket #{position}!</HeaderText>
         <HowItWorksContainer marginTop={20} width={840}>
             <PatuaText fontSize={25}>
                 Congrats on joining the ✨ Instant Influencer Lottery ✨
             </PatuaText>
             <PatuaText fontSize={25}>
-                You currently have a {odds} chance of winning
-            </PatuaText>
-            <PatuaText fontSize={25}>
-                To increase your odds, get your friends to join using the link below.
+                On October 30th at 8am PT we will we will randomly select a winning lottery ticket. Whoever has it will automatically receive a follow from everybody that connected their Twitter account.
             </PatuaText>
             <SmallHeader fontSize={35} style={{marginTop: 40}}>
-                Invite your friends
+                Get More Tickets By Referring Friends
             </SmallHeader>
             <ReferralContainer>
                 <ReferralInputContainer>

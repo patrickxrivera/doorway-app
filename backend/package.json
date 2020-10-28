@@ -12,7 +12,8 @@
     "db:migrate:undo": "npx sequelize-cli db:migrate:undo",
     "db:migrate:undo:all": "npx sequelize-cli db:migrate:undo:all",
     "db:seed:all": "npx sequelize-cli db:seed:all",
-    "migration:generate": "npx sequelize-cli migration:generate"
+    "migration:generate": "npx sequelize-cli migration:generate",
+    "db:setup": "npm run db:migrate && node src/scripts/add-event-types.js"
   },
   "repository": {
     "type": "git",
