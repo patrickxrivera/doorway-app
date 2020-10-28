@@ -47,7 +47,7 @@ function Loading() {
             }
       
             try {
-              const { oauth_token, oauth_verifier, referral_code } = res;
+              const { oauth_token, oauth_verifier, denied } = res;
       
               if (oauth_token && oauth_verifier) {
                 handleTwitterRedirect({
@@ -55,6 +55,8 @@ function Loading() {
                   oauth_verifier
                 });
                 return;
+              } else if (denied) {
+                history.push("/")
               }
             } catch (e) {
               ErrorLogger.send(e);
@@ -115,6 +117,7 @@ export const HeaderText = styled.div`
 
   @media (max-width: 768px) {
     font-size: 65px;
+    -webkit-text-stroke-width: 2px;
 }
 `
 

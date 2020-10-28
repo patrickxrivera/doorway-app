@@ -5,8 +5,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { setupSentry } from './setup/sentry';
+import { setupGoogleAnalytics } from './setup/google-analytics';
 
 setupSentry();
+setupGoogleAnalytics();
 
 ReactDOM.render(
   <React.StrictMode>

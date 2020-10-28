@@ -16,4 +16,6 @@ export const SAVE_PHONE_NUMBER = 'phone-number';
 
 export const GET_LEADERBOARD = '/leaderboard';
 
+export const GET_TOP_LEADERBOARD = '/leaderboard/top';
+
 export const TWITTER_OAUTH_URL = "https://api.twitter.com/oauth/authorize";
