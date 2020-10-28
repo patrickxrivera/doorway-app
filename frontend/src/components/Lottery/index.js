@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
-
+import queryStringParser from "qs"
+import ClipLoader from "react-spinners/ClipLoader";
 import {
   TwitterBoardImage,
   CountdownTimerText,
@@ -13,8 +14,45 @@ import {
   PinkButton,
 } from "./styles";
 import NavBar from '../NavBar';
+import Cache from '../../services/cache';
+import { getRequestToken } from '../../api/twitter';
+import { TWITTER_OAUTH_URL } from '../../utils/endpoints';
+
+const END_DATE = new Date("10/30/2020");
 
 function Lottery() {
+    const [showRequestTokenErrorMessage, setShowRequestTokenErrorMessage] = useState(false);
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        const url = window.location.href.split("?")[1];
+        const res = queryStringParser.parse(url, { ignoreQueryPrefix: true });
+        
+        if (Object.keys(res).length === 0) {
+            return;
+        }
+
+        const { code: referralCode } = res;
+        
+        if (referralCode) {
+            Cache.saveReferralCode(referralCode);
+            return;
+        }
+    })
+
+    const handleGetStartedClick = async () => {
+        setLoading(true);
+        
+        const requestToken = await getRequestToken();
+
+        if (!requestToken) {
+            setShowRequestTokenErrorMessage(true);
+            return;
+        }
+
+        window.location.href = `${TWITTER_OAUTH_URL}?oauth_token=${requestToken}`;
+    }
+
   return (
     <div style={{
         backgroundImage: `url("/images/lottery-background-v2.png")`,
@@ -38,7 +76,7 @@ function Lottery() {
             marginTop: -300,
             fontSize: 50
         }}>
-            <CountdownTimerText daysInHours date={new Date("10/29/2020")} />
+            <CountdownTimerText daysInHours date={END_DATE} />
         </div>
         <HowItWorksContainer>
             <SmallHeader>
@@ -66,11 +104,9 @@ function Lottery() {
             <SmallHeader>
                 Ready to join?
             </SmallHeader>
-            <Link to="/get-started" style={{textDecoration: "none"}}>
-              <PinkButton role="button" tabIndex="0">
-                  Get Started
-              </PinkButton>
-            </Link>
+            <PinkButton width={250} onClick={handleGetStartedClick} role="button" tabIndex="0">
+                {loading ? <ClipLoader color="white" size={30} /> : "Connect Twitter"}
+            </PinkButton>
         </JoinContainer>
     </div>
   );

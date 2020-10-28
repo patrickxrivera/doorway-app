@@ -38,17 +38,17 @@ function Settings() {
   );
 }
 
-const BackgroundImage = styled.div`
+export const BackgroundImage = styled.div`
   background-image: url("/images/lottery-background-v4.png");
   background-size: cover;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: ${props => props.imgHeight}px;
+  height: ${props => props.imgHeight ? `${props.imgHeight}px` : `${window.screen.height}px`};
 `
 
-const HeaderText = styled.div`
+export const HeaderText = styled.div`
     font-size: 140px;
   text-align: center;
   font-family: Sansita;

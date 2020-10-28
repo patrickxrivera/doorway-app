@@ -26,11 +26,7 @@ const columns = [
   {
     dataField: 'tickets',
     text: 'Tickets'
-  },
-  // {
-  //   dataField: 'twitterProfile',
-  //   text: 'Twitter Profile'
-  // }
+  }
 ];
 
 const buildOptionsFor = (leaderboard) => ({
@@ -77,24 +73,24 @@ function Leaderboard() {
       // TODO: handle error
       const leaderboard = await getLeaderboard();
 
-      // const formattedLeaderboard = leaderboard.map(({ screenName, points }, idx) => ({
-      //   position: idx + 1,
-      //   username: <StyledLink href={buildTwitterLink(screenName)} target="_blank">{trim(screenName)}</StyledLink>,
-      //   tickets: points
-      // }))
+      const formattedLeaderboard = leaderboard.map(({ screenName, points }, idx) => ({
+        position: idx + 1,
+        username: trim(screenName),
+        tickets: points
+      }))
 
-      let formattedLeaderboard = [];
+      // let formattedLeaderboard = [];
 
-      for (let i = 0; i < 100; i++) {
-        const screenName = "patrickxrivera";
+      // for (let i = 0; i < 100; i++) {
+      //   const screenName = "patrickxrivera";
 
-        formattedLeaderboard.push({
-          position: i + 1,
-          username: trim(screenName),
-          tickets: 350 - i + 10,
-          // twitterProfile: <StyledLink href={buildTwitterLink(screenName)} target="_blank">Link</StyledLink>,
-        })
-      }
+      //   formattedLeaderboard.push({
+      //     position: i + 1,
+      //     username: trim(screenName),
+      //     tickets: 350 - i + 10,
+      //     // twitterProfile: <StyledLink href={buildTwitterLink(screenName)} target="_blank">Link</StyledLink>,
+      //   })
+      // }
 
       setLeaderboard(formattedLeaderboard);
     }

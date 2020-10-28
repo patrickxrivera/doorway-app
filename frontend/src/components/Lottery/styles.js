@@ -63,6 +63,7 @@ export const PatuaText = styled.span`
     font-family: "Patua One";
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
+    color: #fff;
 
     @media (max-width: 768px) {
         text-align: left;

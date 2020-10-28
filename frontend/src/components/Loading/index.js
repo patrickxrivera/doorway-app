@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from "styled-components";
 import ClockLoader from "react-spinners/ClockLoader";
 import queryStringParser from "qs"
@@ -8,27 +8,34 @@ import { redeemReferralCode } from '../../api/referral';
 import { useHistory } from "react-router-dom";
 import Cache from "../../services/cache";
 import NavBar from '../NavBar';
+import Error from '../Error';
 
 function Loading() {
-    const history = useHistory();
+  const [error, setError] = useState(false);
+
+  const history = useHistory();
 
     useEffect(() => {
         const handleTwitterRedirect = async ({ oauth_token, oauth_verifier }) => {
-            const { token } = await getAccessToken({
-              oAuthToken: oauth_token,
-              oAuthVerifier: oauth_verifier
-            });
-            
-            Cache.saveToken(token);
-      
-            const existingReferralCode = Cache.getReferralCode();
-            
-            if (existingReferralCode) {
-              await redeemReferralCode(existingReferralCode)
-              Cache.removeReferralCode();
+            try {
+              const { token } = await getAccessToken({
+                oAuthToken: oauth_token,
+                oAuthVerifier: oauth_verifier
+              });
+              
+              Cache.saveToken(token);
+        
+              const existingReferralCode = Cache.getReferralCode();
+              
+              if (existingReferralCode) {
+                await redeemReferralCode(existingReferralCode)
+                Cache.removeReferralCode();
+              }
+  
+              history.push("/refer");
+            } catch (e) {
+              setError(true);
             }
-
-            history.push("/refer");
           }
 
         const handleQueryParams = async () => {
@@ -57,6 +64,10 @@ function Loading() {
           
           handleQueryParams();
     }, [history]);
+
+    if (error) {
+      return <Error />
+    }
 
     return (
         <LoadingComponent
@@ -92,7 +103,7 @@ const LoadingIconContainer = styled.div`
     margin-bottom: 420px;
 `
 
-const HeaderText = styled.div`
+export const HeaderText = styled.div`
     font-size: 100px;
   text-align: center;
   font-family: Sansita;
