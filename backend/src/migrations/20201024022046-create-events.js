@@ -25,7 +25,7 @@ module.exports = {
           key: "id" 
         },
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: true
       },
       createdAt: {
         allowNull: false,

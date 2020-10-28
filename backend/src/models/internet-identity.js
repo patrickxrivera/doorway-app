@@ -20,9 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'internetIdentity',
     defaultScope: {
       where: {
-        revokedAt: {
-          [Op.ne]: null
-        }
+        revokedAt: null
       }
     },
   });

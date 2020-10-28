@@ -13,7 +13,7 @@ export function Error() {
             Looks like something went wrong.
         </PatuaText>
         <div style={{marginTop: 42}}>
-            <StyledLink href="mailto:patrick.x.rivera@gmail.com">
+            <StyledLink href="https://twitter.com/messages/compose?recipient_id=63534037" target="_blank">
                 <PinkButton>
                     Contact Us
                 </PinkButton>

@@ -2,7 +2,7 @@ const models = require("../../models");
 const { INTERNET_IDENTITY_TYPES } = require("../../utils/constants");
 
 class Leaderboard {
-    static async fetch() {
+    static async fetch({ limit = null } = {}) {
         const query = `
             select 
                 ii."screenName", 
@@ -18,11 +18,16 @@ class Leaderboard {
             group by 
                 1 
             order by 
-                2 desc, 1 asc;
+                2 desc, 1 asc
+            limit
+                :limit;
         `
 
         const [leaderboard] = await models.sequelize.query(query, {
-            replacements: { twitterIdentityType: INTERNET_IDENTITY_TYPES.TWITTER },
+            replacements: { 
+                twitterIdentityType: INTERNET_IDENTITY_TYPES.TWITTER,
+                limit
+            },
         });
         
         return leaderboard;

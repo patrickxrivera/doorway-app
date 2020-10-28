@@ -1,4 +1,5 @@
 export default {
     sentryDSN: "https://9c860a9e112b4c05882d295583f236ec@o464689.ingest.sentry.io/5477495",
-    webAppUrl: "https://usemicro.com/follow-gate"
+    webAppUrl: "https://usemicro.com/follow-gate",
+    googleAnalyticsId: "G-RYWHXX16DL"
 }

@@ -138,6 +138,7 @@ const HeaderText = styled.div`
 
     @media (max-width: 768px) {
         font-size: 80px;
+        -webkit-text-stroke-width: 2px;
     }
 `
 

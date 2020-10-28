@@ -20,13 +20,13 @@ const setupTwitterRoutes = (server, { auth }) => {
             const { 
                 oauth_token,
                 oauth_token_secret,
-                user_id,
+                user_id: identityId,
                 screen_name
             } = await TwitterService.getAccessToken(req.body);
-
+            
             const existingInternetIdentity = await models.internetIdentity.findOne({
                 where: { 
-                    identityId: user_id,
+                    identityId,
                     identityType: INTERNET_IDENTITY_TYPES.TWITTER
                 }
             });
@@ -64,6 +64,7 @@ const setupTwitterRoutes = (server, { auth }) => {
                 res.json({ token, existing: false })
             };
         } catch (e) {
+            console.log({e})
             next(e);
         }
     });

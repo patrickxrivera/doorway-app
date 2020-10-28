@@ -20,6 +20,8 @@ import ConnectTwitterButton from '../ConnectTwitterButton';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import { NavLink } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive'
+import { getTopLeaderboard } from '../../api/leaderboard';
+import Error from '../Error';
 
 const END_DATE = (new Date("10/30/2020")).getTime() + (1000 * 60 * 60 * 8);
 
@@ -53,23 +55,13 @@ function Lottery() {
     })
 
     useEffect(() => {
-        setTopLeaderboard([
-            {
-                screenName: "patrickxrivera"
-            },
-            {
-                screenName: "elonmusk"
-            },
-            {
-                screenName: "thatguybg"
-            },
-            {
-                screenName: "Micro24123423423412323"
-            },
-            {
-                screenName: "ye"
-            },
-        ])
+        const callGetTopLeaderboard = async () => {
+            const topLeaderboard = await getTopLeaderboard();
+            
+            setTopLeaderboard(topLeaderboard);
+        }
+
+        callGetTopLeaderboard();
     }, [])
 
     const handleGetStartedClick = async () => {
@@ -135,10 +127,10 @@ function Lottery() {
             <HowItWorksContainer>
                 <SmallHeader mobileTextAlign="center" fontSize={50}>How it works</SmallHeader>
                 <PatuaText fontSize={25} textAlign={"left"}>
-                    1. Connect your Twitter account to earn tickets
+                    1. Connect your Twitter account to earn 10 tickets
                 </PatuaText>
                 <PatuaText fontSize={25} textAlign={"left"}>
-                    2. Earn more tickets by getting friends to join using your referral link
+                    2. Earn 10 more tickets by getting friends to join using your referral link
                 </PatuaText>
                 <PatuaText fontSize={25} textAlign={"left"}>
                     3. On October 30th at 8AM PT, we will select a winning ticket that will automatically receive a follow from every player
