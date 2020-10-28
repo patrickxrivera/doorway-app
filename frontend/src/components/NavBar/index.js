@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-import { getIsLoggedIn } from "../../utils/helpers";
 import Cache from "../../services/cache";
+import ConnectTwitterButton from "../ConnectTwitterButton";
 
 function NavBar() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -24,7 +24,20 @@ function NavBar() {
             </React.Fragment>
         ) : (
             <NavBarItem marginRight={40} marginRightMobile={20}>
-                <StyledNavLink to="/get-started">Get Started</StyledNavLink>
+                <ConnectTwitterButton
+                    marginTop={0}
+                    fontSize={20}
+                    padding={"25px 20px"}
+                    width={145}
+                    mobileWidth={"auto"}
+                    mobileFontSize={20}
+                    mobilePadding={"0px"}
+                    background="none"
+                    boxShadow="none"
+                    border="none"
+                    strokeWidth={"1px"}
+                    strokeColor={"#12688D"}
+                />
             </NavBarItem>
         )
         
@@ -64,9 +77,14 @@ const StyledNavLink = styled(NavLink)`
 const NavBarItem = styled.div`
     margin: 0 20px;
     margin-right: ${props => props.marginRight ? `${props.marginRight}px` : null};
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     @media (max-width: 768px) {
         margin-right: ${props => props.marginRightMobile ? `${props.marginRightMobile}px` : null};
+        justify-content: flex-end;
+        margin-bottom: 10px;
     }
 `
 
