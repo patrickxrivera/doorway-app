@@ -16,7 +16,7 @@ function NavBar() {
         isLoggedIn ? (
             <React.Fragment>
                 <NavBarItem >
-                    <StyledNavLink to="/refer">Earn tickets</StyledNavLink>
+                    <StyledNavLink to="/refer">Your tickets</StyledNavLink>
                 </NavBarItem>
                 <NavBarItem marginRight={40} marginRightMobile={20}>
                     <StyledNavLink to="/settings">Settings</StyledNavLink>
