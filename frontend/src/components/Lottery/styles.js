@@ -98,7 +98,7 @@ export const CountdownTimerText = styled(Countdown)`
   @media (max-width: 768px) {
       font-size: 60px;
       -webkit-text-stroke-width: 2px;
-      margin-top: 25%;
+      margin-top: 28%;
   }
 `
 
