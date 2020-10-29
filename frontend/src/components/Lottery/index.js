@@ -92,7 +92,7 @@ function Lottery() {
         <TopContainer>
             <SectionContainer>
                 <SmallHeader fontSize={50} mobileTextAlign={"center"}>
-                    Become an influencer overnight!
+                    Become an influencer overnight
                 </SmallHeader>
                 <PatuaText textAlign="left" fontSize={24} mobileTextAlign="center">
                     On October 30th at 8AM PT, we’ll pick a lucky lottery ticket owner to win hundreds of new followers on Twitter
