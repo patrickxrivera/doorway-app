@@ -34,7 +34,7 @@ export const TwitterBoardImage = styled.img`
     height: 500px;
 
     @media (max-width: 768px) {
-        height: 300px;
+        height: 285px;
     }
 `
 
