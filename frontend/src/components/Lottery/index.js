@@ -90,7 +90,7 @@ function Lottery() {
     }}>
         <NavBar />
         <TopContainer>
-            <SectionContainer>
+            <SectionContainer paddingRight={50}>
                 <SmallHeader fontSize={50} mobileTextAlign={"center"}>
                     Become an influencer overnight
                 </SmallHeader>
@@ -199,7 +199,7 @@ function Lottery() {
 
 const TopContainer = styled.div`
     display: flex;
-    width: 1300px;
+    width: 1200px;
     justify-content: space-between;
 
     @media (max-width: 768px) {
@@ -227,6 +227,7 @@ const SectionContainer = styled.div`
     display: flex;
     flex-direction: ${props => props.flexDirection ? props.flexDirection : "column"};
     width: ${props => props.width ? `${props.width}px` : null};
+    padding-right: ${props => props.paddingRight ? `${props.paddingRight}px` : null};
 
     @media (max-width: 768px) {
         width: 95%;
