@@ -71,6 +71,7 @@ const StyledNavLink = styled(NavLink)`
     &:hover {
         text-decoration: none;
         color: #fff;
+        opacity: 0.6;
     }
 `
 
