@@ -36,7 +36,7 @@ function Lottery() {
         query: '(min-device-width: 1224px)'
     })
 
-    const trimLimit = isDesktopOrLaptop ? 23 : 13;
+    const trimLimit = isDesktopOrLaptop ? 23 : 17;
 
     useEffect(() => {
         const url = window.location.href.split("?")[1];
@@ -79,7 +79,7 @@ function Lottery() {
 
   return (
     <div style={{
-        backgroundImage: `url("/images/lottery-background-v2.png")`,
+        backgroundImage: `url("/images/lottery-background-v5.png")`,
         backgroundSize: "cover",
         overflow: "hidden",
         display: "flex",
@@ -92,7 +92,7 @@ function Lottery() {
         <TopContainer>
             <SectionContainer>
                 <SmallHeader fontSize={50} mobileTextAlign={"center"}>
-                    Become an influencer over night!
+                    Become an influencer overnight!
                 </SmallHeader>
                 <PatuaText textAlign="left" fontSize={24} mobileTextAlign="center">
                     On October 30th at 8AM PT, we’ll pick a lucky lottery ticket owner to win hundreds of new followers on Twitter
@@ -138,23 +138,23 @@ function Lottery() {
             </HowItWorksContainer>
         </SectionContainer>
         <LeaderboardContainer>
-            <SmallHeader fontSize={80} mobileFontSize={50}>
+            <SmallHeader fontSize={50} mobileFontSize={50}>
                 Leaderboard
             </SmallHeader>
             <div>
                 {topLeaderboard.map(({ screenName }, idx) => {
                     return (
                         <LeaderboardItemContainer>
-                            <SmallHeader fontSize={90} mobileFontSize={50}>{idx + 1}.</SmallHeader>
+                            <SmallHeader fontSize={25}>{idx + 1}.</SmallHeader>
                             <TwitterLink href={`https://twitter.com/${screenName}`} target="_blank">
-                                <PatuaText fontSize={60} mobileFontSize={35} marginLeft={12} marginTop="none">@{trim(screenName, trimLimit)}</PatuaText>
+                                <PatuaText fontSize={25} marginLeft={12} marginTop="none">@{trim(screenName, trimLimit)}</PatuaText>
                             </TwitterLink>
                         </LeaderboardItemContainer>
                     )   
                 })}
                 <LeaderboardItemContainer justifyContent="center">
                     <div>
-                        <PatuaText mobileFontSize={35} fontSize={60} marginTop="none"><StyledNavLink to="/leaderboard">See all <AiOutlineArrowRight /></StyledNavLink></PatuaText>
+                        <PatuaText fontSize={25} marginTop="none"><StyledNavLink to="/leaderboard">See all <AiOutlineArrowRight /></StyledNavLink></PatuaText>
                     </div>
                 </LeaderboardItemContainer>
             </div>
@@ -239,7 +239,12 @@ const HowItWorksContainer = styled.div`
 const LeaderboardItemContainer = styled.div`
     display: flex;
     align-items: center;
+    margin: 18px 0px;
     justify-content: ${props => props.justifyContent ? props.justifyContent : null};
+
+    @media (max-width: 768px) {
+        margin-left: 24px;
+    }
 `
 
 const TextContainer = styled.div`
@@ -276,6 +281,7 @@ const ConnectTwitterButtonContainer = styled.div`
 
 const LeaderboardContainer = styled.div`
     text-align: center;
+    margin-top: 96px;
 
     @media (max-width: 768px) {
         width: 95%;
