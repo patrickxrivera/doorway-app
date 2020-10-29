@@ -286,6 +286,7 @@ const LeaderboardContainer = styled.div`
 const TwitterLink = styled.a`
     &:hover {
         text-decoration: none;
+        opacity: 0.6;
     }
 `
 
