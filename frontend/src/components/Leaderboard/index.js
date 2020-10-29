@@ -186,7 +186,6 @@ export const BackgroundImage = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: ${props => props.imgHeight ? `${props.imgHeight}px` : `${window.screen.height}px`};
 `
 
 export default Leaderboard;
