@@ -43,7 +43,7 @@ const setupTwitterRoutes = (server, { auth }) => {
                 const user = await models.user.create();
                 
                 await models.internetIdentity.create({
-                    identityId: user_id,
+                    identityId,
                     identityType: INTERNET_IDENTITY_TYPES.TWITTER,
                     screenName: screen_name,
                     userId: user.id,
