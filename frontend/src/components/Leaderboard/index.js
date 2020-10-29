@@ -180,7 +180,7 @@ const HeaderText = styled.div`
 `
 
 export const BackgroundImage = styled.div`
-  background-image: url("/images/lottery-background-v2.png");
+  background-image: url("/images/lottery-background-v5.png");
   background-size: cover;
   overflow: hidden;
   display: flex;

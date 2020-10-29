@@ -8,6 +8,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  createBrowserHistory
 } from "react-router-dom";
 import styled from "styled-components"
 import BeatLoader from "react-spinners/BeatLoader";
