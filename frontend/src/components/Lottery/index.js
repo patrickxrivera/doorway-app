@@ -95,10 +95,10 @@ function Lottery() {
                     Become an influencer overnight
                 </SmallHeader>
                 <PatuaText textAlign="left" fontSize={24} mobileTextAlign="center">
-                    On October 30th at 8AM PT, we’ll pick a lucky lottery ticket owner to win hundreds of new followers on Twitter
+                    On October 30th at 8AM PT, we’ll pick someone to receive a follow from everyone that connects their Twitter account
                 </PatuaText>
                 <PatuaText textAlign="left" fontSize={24} mobileTextAlign="center">
-                    Connect your Twitter and refer friends to earn tickets!
+                    Connect your Twitter and refer friends to be entered to win
                 </PatuaText>
                 <ConnectTwitterButtonContainer>
                     <ConnectTwitterButton marginTop={24} width={250} />
@@ -164,7 +164,11 @@ function Lottery() {
                 Who built this?
             </SmallHeader>
             <PatuaText fontSize={25}>
-                Influence Lottery is an experiment from Social Studies Labs, a product studio by{" "}
+                Influence Lottery is an experiment from{" "}
+                <StyledLink href="https://socialstudies.news" target="_blank">
+                    Social Studies
+                </StyledLink>{" "}
+                Labs, a product studio by{" "}
                 <StyledLink href="https://twitter.com/thatguybg" target="_blank">
                     Brett Goldstein
                 </StyledLink>{" "} and {" "}
@@ -195,7 +199,7 @@ function Lottery() {
 
 const TopContainer = styled.div`
     display: flex;
-    width: 1200px;
+    width: 1300px;
     justify-content: space-between;
 
     @media (max-width: 768px) {
@@ -209,6 +213,13 @@ const StyledLink = styled.a`
     -webkit-text-stroke-color: black;
     text-decoration: underline;
     text-decoration-color: white;
+
+    &:hover {
+        text-decoration: underline;
+        text-decoration-color: #fff;
+        opacity: 0.6;
+        color: #fff;
+    }
 `
 
 const SectionContainer = styled.div`
