@@ -23,7 +23,7 @@ import { useMediaQuery } from 'react-responsive'
 import { getTopLeaderboard } from '../../api/leaderboard';
 import Error from '../Error';
 
-const END_DATE = (new Date("10/30/2020")).getTime() + (1000 * 60 * 60 * 8);
+const END_DATE = (new Date("10/31/2020")).getTime() + (1000 * 60 * 60 * 8);
 
 const trim = (screenName, limit) => screenName.length > limit ? screenName.slice(0, limit) + "..." : screenName;
 
@@ -95,7 +95,7 @@ function Lottery() {
                     Become an influencer overnight
                 </SmallHeader>
                 <PatuaText textAlign="left" fontSize={24} mobileTextAlign="center">
-                    On October 30th at 8AM PT, we’ll pick someone to receive a follow from everyone that connects their Twitter account
+                    On October 31st at 8AM PT, we’ll pick someone to receive a follow from everyone that connects their Twitter account
                 </PatuaText>
                 <PatuaText textAlign="left" fontSize={24} mobileTextAlign="center">
                     Connect your Twitter and refer friends to be entered to win
@@ -133,7 +133,7 @@ function Lottery() {
                     2. Earn 10 more tickets by getting friends to join using your referral link
                 </PatuaText>
                 <PatuaText fontSize={25} textAlign={"left"}>
-                    3. On October 30th at 8AM PT, we will select a winning ticket that will automatically receive a follow from every player
+                    3. On October 31st at 8AM PT, we will select a winning ticket that will automatically receive a follow from every player
                 </PatuaText>
             </HowItWorksContainer>
         </SectionContainer>

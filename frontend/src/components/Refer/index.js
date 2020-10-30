@@ -68,7 +68,7 @@ function Refer() {
                 Congrats on joining the ✨ Instant Influencer Lottery ✨
             </PatuaText>
             <PatuaText fontSize={25}>
-                On October 30th at 8am PT we will we will randomly select a winning lottery ticket. Whoever has it will automatically receive a follow from everybody that connected their Twitter account.
+                On October 31st at 8am PT we will we will randomly select a winning lottery ticket. Whoever has it will automatically receive a follow from everybody that connected their Twitter account.
             </PatuaText>
             <SmallHeader fontSize={35} style={{marginTop: 40}}>
                 Get More Tickets By Referring Friends
@@ -86,7 +86,7 @@ function Refer() {
                     Leaderboard
                 </SmallHeader>
                 <PatuaText fontSize={25}>
-                    See your position in real-time on <LeaderboardLink to="/leaderboard">the leaderboard</LeaderboardLink>. We will DM the winner at 8am PT on October 30th.
+                    See your position in real-time on <LeaderboardLink to="/leaderboard">the leaderboard</LeaderboardLink>. We will DM the winner at 8am PT on October 31st.
                 </PatuaText>
             </LeaderboardContainer>
         </HowItWorksContainer>
